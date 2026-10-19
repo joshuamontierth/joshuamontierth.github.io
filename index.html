@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Josh Montierth · Wireless Systems Engineer</title>
+<meta name="description" content="Josh Montierth is an engineer and graduate researcher in digital signal processing and wireless communication systems. Education, experience, publications, and skills.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#06080c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta property="og:title" content="Josh Montierth · Wireless Systems Engineer">
+<meta property="og:description" content="Network Research Scientist at Riverside Research. MS ECE at BYU and NSF Graduate Research Fellow.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://joshuamontierth.github.io/">
+<meta property="og:image" content="https://joshuamontierth.github.io/assets/img/headshot.jpg">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem("theme")}catch(e){}if(t==="light"||t==="dark")r.setAttribute("data-theme",t);r.classList.add("js")})()</script>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#education">Skip to education</a>
+
+<header class="bar" id="bar">
+  <a class="bar-name" href="index.html">Josh Montierth</a>
+  <nav class="tabs" aria-label="Site">
+    <a href="index.html" aria-current="page">Experience</a>
+    <a href="research.html">Research</a>
+    <a href="projects.html">Projects</a>
+    <a href="thesis.html">Thesis</a>
+    <a href="cv.html">Resume</a>
+  </nav>
+  <div class="bar-act">
+    <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch to light theme">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
+    </button>
+    <a class="theme-btn bar-in" href="https://www.linkedin.com/in/josh-montierth/" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="2.5 2.5 19 19" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.064 2.064 0 1 1 0-4.128 2.064 2.064 0 0 1 0 4.128zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+    <a class="btn btn-solid" href="mailto:joshuamontierth@gmail.com">Email</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="hero-title">
+  <canvas class="mesh" id="mesh" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1 id="hero-title" data-reveal>Josh Montierth</h1>
+      <div class="hero-id" data-reveal>
+        <img class="headshot" src="assets/img/headshot.jpg" alt="Josh Montierth" width="480" height="600">
+        <p class="hero-lede">Engineer and graduate researcher specializing in digital signal processing and wireless communication systems. Experienced in designing, implementing, and evaluating wireless systems, with expertise spanning digital communications, channel modeling, algorithm design, and electromagnetic propagation. Brings both hands-on engineering experience and graduate research to practical, technically demanding problems.</p>
+      </div>
+    </div>
+    <aside class="tele" aria-label="Live network demo" data-reveal>
+      <p class="tele-h"><span class="dot" aria-hidden="true"></span>You're on the network</p>
+      <p class="signal"><span class="bars" id="t-bars" data-level="0" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="t-quality">Searching</span></p>
+      <dl class="tele-grid">
+        <div><dt>Radios in range</dt><dd id="t-range">0</dd></div>
+        <div><dt>Messages received</dt><dd id="t-msgs">0</dd></div>
+        <div><dt>Secondary messages</dt><dd id="t-hidden" class="sig is-zero">0</dd></div>
+      </dl>
+      <p class="tele-hint" id="tele-hint">Each dot is a radio in a mesh network. Messages hop from device to device to reach you; move your cursor to roam. Orange ones carry a secondary message on top of an ordinary signal, which is the idea behind much of my research.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="sec" id="education" aria-labelledby="edu-h">
+  <header class="sec-head" data-reveal>
+    <h2 id="edu-h">Education</h2>
+    <p>Brigham Young University, Provo, Utah.</p>
+  </header>
+  <ol class="entries">
+    <li class="entry is-live">
+      <p class="entry-when"><span>Expected April 2027</span></p>
+      <div class="entry-body">
+        <h3>Master of Science in Electrical and Computer Engineering</h3>
+        <p class="entry-org">Brigham Young University · 4.0 GPA</p>
+        <ul>
+          <li>2026 recipient of the <a href="https://ece.byu.edu/department-news/joshua-montierth-awarded-nsf-graduate-research-fellowship">National Science Foundation Graduate Fellowship</a> to further research in wireless innovation</li>
+          <li>Thesis work focused on wireless communication and embedded RF systems: <a href="thesis.html">Frequency Lock Encoding</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <p class="entry-when"><span>April 2026</span></p>
+      <div class="entry-body">
+        <h3>Bachelor of Science in Electrical Engineering</h3>
+        <p class="entry-org">Brigham Young University · Summa Cum Laude · 4.0 GPA</p>
+        <ul><li>Minors in Computer Science and Mathematics</li></ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="sec" id="experience" aria-labelledby="exp-h">
+  <header class="sec-head" data-reveal>
+    <h2 id="exp-h">Experience</h2>
+    <p>Research, industry, and teaching.</p>
+  </header>
+  <ol class="entries">
+    <li class="entry is-live">
+      <p class="entry-when"><span><time datetime="2026-09">September 2026</time>–Present</span></p>
+      <div class="entry-body">
+        <h3>Network Research Scientist</h3>
+        <p class="entry-org">Riverside Research · Remote</p>
+        <ul>
+          <li>Team lead and designer for wireless defense technology development</li>
+          <li>Design and implement wireless algorithms and protocols to enable new functionality in existing commercial hardware</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry is-live">
+      <p class="entry-when"><span><time datetime="2023-11">November 2023</time>–Present</span></p>
+      <div class="entry-body">
+        <h3>Research Assistant</h3>
+        <p class="entry-org">BYU Network Enhanced Technologies Lab · Provo, UT</p>
+        <ul>
+          <li>Authored three peer-reviewed publications on novel wireless protocols and presented them at international conferences</li>
+          <li>Lead researcher developing new wireless systems, algorithms, and protocols on SDRs and embedded devices</li>
+          <li>Collaborated on multi-university research on communications for underwater autonomous vehicles</li>
+        </ul>
+        <p class="role-links">
+          <a class="lnk" href="research.html#fle">Frequency Lock Encoding</a>
+          <a class="lnk" href="research.html#undertone">UnderTone</a>
+          <a class="lnk" href="research.html#spectralseal">SpectralSeal</a>
+          <a class="lnk" href="research.html#underwater">Underwater full duplex</a>
+          <a class="lnk" href="research.html#nicu">NICU localization</a>
+        </p>
+      </div>
+    </li>
+    <li class="entry">
+      <p class="entry-when"><span><time datetime="2025-09">September 2025</time>–<time datetime="2026-04">April 2026</time></span></p>
+      <div class="entry-body">
+        <h3>Lead RF Engineer</h3>
+        <p class="entry-org">Rincon Research Corporation · Provo, UT</p>
+        <ul>
+          <li>Lead engineer for BYU capstone project (250+ hours of product development) sponsored by Rincon Research Corporation</li>
+          <li>Designed and implemented a low-cost RF sensing system for terrestrial detection of spaceborne imaging radar</li>
+        </ul>
+        <p class="role-links"><a class="lnk" href="research.html#sarlink">How SARLINK works</a></p>
+      </div>
+    </li>
+    <li class="entry">
+      <p class="entry-when"><span><time datetime="2025-04">April 2025</time>–<time datetime="2025-08">August 2025</time></span></p>
+      <div class="entry-body">
+        <h3>Course Instructor</h3>
+        <p class="entry-org">BYU College of Engineering · Provo, UT</p>
+        <ul>
+          <li>Instructed sophomore computer systems course with topics on computer architecture and C language fundamentals</li>
+          <li>Developed curriculum for new university circuits course including 12 hands-on labs and taught the pilot class</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <p class="entry-when"><span><time datetime="2024-01">January 2024</time>–<time datetime="2025-04">April 2025</time></span></p>
+      <div class="entry-body">
+        <h3>Teaching Assistant</h3>
+        <p class="entry-org">BYU Physics Department · Provo, UT</p>
+        <ul><li>Taught physics course on electromagnetics to classes of 100+ undergraduate students</li></ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="sec" id="publications" aria-labelledby="pub-h">
+  <header class="sec-head" data-reveal>
+    <h2 id="pub-h">Publications</h2>
+    <p>Each one is explained, with figures and live demos, on the <a href="research.html">research</a> page.</p>
+  </header>
+  <ol class="pubs">
+    <li class="pub">
+      <p class="pub-when">2026</p>
+      <div class="pub-main">
+        <h3><a href="assets/docs/Montierth-MobiCom-2026-UnderTone-WiP.pdf">UnderTone: Frequency Lock Encoding on COTS <span class="nw">Wi-Fi</span> Hardware</a></h3>
+        <p class="pub-auth"><b>J. Montierth</b>, P. Lundrigan</p>
+        <p class="pub-venue">ACM MobiCom '26, work in progress</p>
+      </div>
+      <p class="pub-files"><a class="lnk" href="assets/docs/Montierth-MobiCom-2026-UnderTone-WiP.pdf">PDF</a><button class="lnk" type="button" data-bib="undertone">BibTeX</button></p>
+    </li>
+    <li class="pub">
+      <p class="pub-when">2026</p>
+      <div class="pub-main">
+        <h3><a href="assets/docs/Montierth-MILCOM-2026-Frequency-Lock-Encoding.pdf">Frequency Lock Encoding</a></h3>
+        <p class="pub-auth"><b>J. Montierth</b>, M. Rice, P. Lundrigan</p>
+        <p class="pub-venue">IEEE MILCOM '26</p>
+      </div>
+      <p class="pub-files"><a class="lnk" href="assets/docs/Montierth-MILCOM-2026-Frequency-Lock-Encoding.pdf">PDF</a><button class="lnk" type="button" data-bib="fle">BibTeX</button></p>
+    </li>
+    <li class="pub">
+      <p class="pub-when">2024</p>
+      <div class="pub-main">
+        <h3><a href="https://doi.org/10.1145/3699432.3699464">Using Orthogonal Chirps Underwater for In-Band, Full-Duplex Communication with Minimal Self-Interference Cancellation</a></h3>
+        <p class="pub-auth">B. Schiel, <b>J. Montierth</b>, E. Blattner, C. E. Dobbs, T. B. Nielsen, P. Lundrigan</p>
+        <p class="pub-venue">ACM WUWNet '24</p>
+      </div>
+      <p class="pub-files"><a class="lnk" href="https://doi.org/10.1145/3699432.3699464">ACM</a><button class="lnk" type="button" data-bib="chirps">BibTeX</button></p>
+    </li>
+  </ol>
+  <p class="bib-status" id="bib-status" role="status"></p>
+</section>
+
+<section class="sec" id="skills" aria-labelledby="skills-h">
+  <header class="sec-head" data-reveal>
+    <h2 id="skills-h">Skills</h2>
+  </header>
+  <div class="skills">
+    <div class="skill-col">
+      <h3>Technical skills</h3>
+      <dl>
+        <div><dt>RF and DSP</dt><dd>Software-defined radio (USRP, ADALM-Pluto, GNU Radio), digital communications, waveform and protocol design, channel modeling, RF systems, <span class="nw">Wi-Fi</span>, LoRa, UWB, algorithm design, error control codes</dd></div>
+        <div><dt>Programming</dt><dd>C, C++, Python (including PyTorch), MATLAB (including Simulink), Java, JavaScript</dd></div>
+        <div><dt>Design and fabrication</dt><dd>Autodesk Inventor (Certified Professional), Fusion 360, 3D printing, CNC machining, laser cutting</dd></div>
+      </dl>
+    </div>
+    <div class="skill-col">
+      <h3>Coursework</h3>
+      <ul class="course">
+        <li>Electromagnetic Propagation</li><li>Digital Signal Processing</li><li>Transmission Line Theory</li>
+        <li>Embedded Programming</li><li>Machine Learning</li><li>Quantum Optics</li>
+        <li>Digital Communication Theory</li><li>Stochastic Processes</li><li>Error Control Coding</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <h3>Activities and leadership</h3>
+      <dl>
+        <div><dt>2024–2026</dt><dd>Volunteer public speaker and organizer of community events and service activities for 1000+ individuals</dd></div>
+        <div><dt>2021–2023</dt><dd>Led 100 volunteers in southern Brazil, developed KPIs, and improved team alignment and productivity</dd></div>
+        <div><dt>2016–2020</dt><dd>Funded college education through personal landscaping business</dd></div>
+        <div><dt>Honors</dt><dd>Eagle Scout, Tau Beta Pi Member</dd></div>
+      </dl>
+    </div>
+    <div class="skill-col">
+      <h3>Languages and interests</h3>
+      <dl>
+        <div><dt>Languages</dt><dd>Portuguese (fluent), Spanish (working proficiency)</dd></div>
+        <div><dt>Interests</dt><dd>Competitive classical piano for 12 years, science fiction writing, and 3D design and fabrication. More on the <a href="projects.html">projects</a> page.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h" data-reveal>Let's connect.</h2>
+  <p class="c-mail"><a href="mailto:joshuamontierth@gmail.com">joshuamontierth@gmail.com</a></p>
+  <p class="c-links">
+    <a class="lnk" href="https://www.linkedin.com/in/josh-montierth/">LinkedIn</a>
+    <a class="lnk" href="https://github.com/joshuamontierth">GitHub</a>
+    <a class="lnk" href="cv.html">Resume</a>
+  </p>
+</section>
+</main>
+
+<footer class="foot">
+  <p>© 2026 Joshua Montierth.</p>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/mesh.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

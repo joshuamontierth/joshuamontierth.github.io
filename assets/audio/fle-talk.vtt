@@ -1,0 +1,45 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:09.480
+So Frequency Lock Encoding is a very simple idea,
+but it's just that: what if we intentionally inject
+frequency impairments, so, subtle frequency shifts,
+as a way of encoding data?
+
+2
+00:00:09.480 --> 00:00:18.350
+And this is really powerful because now we can
+actually have another signaling layer, but we're
+not using any extra airtime, because we're just
+modulating the already existing signal.
+
+3
+00:00:18.350 --> 00:00:23.550
+We're not using any extra frequency bands. We're just
+jittering the waveform ever so slightly.
+
+4
+00:00:23.550 --> 00:00:31.410
+And we're not using any additional hardware
+or antennas or things like that. We're just
+modifying within the pull-in range of
+whatever synchronizer.
+
+5
+00:00:31.410 --> 00:00:37.150
+So we call this idea a subprotocol. So we have a
+protocol living on top of another protocol.
+
+6
+00:00:37.150 --> 00:00:42.680
+And so we can imagine a lot of different
+topologies, but the one that we care about
+is we can have a transmitter.
+
+7
+00:00:42.680 --> 00:00:50.400
+And they're transmitting via their primary
+protocol to a receiver, but they're also
+transmitting to a secondary receiver
+through this subprotocol.

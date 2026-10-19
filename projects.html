@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects · Josh Montierth</title>
+<meta name="description" content="Josh Montierth's projects: PenPlot Studio, the Pantri recipe and shopping-list app, a hands-free sheet-music reader, a live mood-music generator, chess variants, home-lab tools, a Wordle solver, a science-fiction novel, and school projects in machine learning, photonics, and optics.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#06080c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem("theme")}catch(e){}if(t==="light"||t==="dark")r.setAttribute("data-theme",t);r.classList.add("js")})()</script>
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#penplot">Skip to projects</a>
+<header class="bar is-solid" id="bar">
+  <a class="bar-name" href="index.html">Josh Montierth</a>
+  <nav class="tabs" aria-label="Site">
+    <a href="index.html">Experience</a>
+    <a href="research.html">Research</a>
+    <a href="projects.html" aria-current="page">Projects</a>
+    <a href="thesis.html">Thesis</a>
+    <a href="cv.html">Resume</a>
+  </nav>
+  <div class="bar-act">
+    <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch to light theme">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
+    </button>
+    <a class="theme-btn bar-in" href="https://www.linkedin.com/in/josh-montierth/" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="2.5 2.5 19 19" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.064 2.064 0 1 1 0-4.128 2.064 2.064 0 0 1 0 4.128zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+    <a class="btn btn-solid" href="mailto:joshuamontierth@gmail.com">Email</a>
+  </div>
+</header>
+
+<main class="page">
+  <header class="page-head">
+    <h1>Projects</h1>
+    <div>
+      <p>I am a creator and am driven by a wide range of hobbies and interests. I have a passion for using my engineering background to solve everyday problems.</p>
+      <p>I love turning ideas into tangible creations. Whether it's woodworking, 3D printing, or a software project, I'm all in. As an Autodesk Inventor Certified Professional, I bring my designs to life through 3D modeling, 3D printing, CNC machining, laser cutting, and software development. I also enjoy creating art through music and prose and finding ways to bring engineering into my creative pursuits.</p>
+    </div>
+  </header>
+
+  <div class="r-grid">
+    <nav class="rail" aria-label="On this page">
+      <p class="rail-h">Personal projects</p>
+      <ol>
+        <li><a href="#penplot">PenPlot Studio</a></li>
+        <li><a href="#pantri">Pantri</a></li>
+        <li><a href="#maestro">Maestro</a></li>
+        <li><a href="#mood-music">Mood Music</a></li>
+        <li><a href="#chess-lab">Chess Lab</a></li>
+        <li><a href="#home-lab">Home Lab Setup</a></li>
+        <li class="rail-sub"><a href="#avogadro">Avogadro</a></li>
+        <li><a href="#wordlebot">WordleBot</a></li>
+        <li><a href="#beyond-the-stars">Beyond the Stars</a></li>
+      </ol>
+      <p class="rail-h">School projects</p>
+      <ol>
+        <li><a href="#language-model">Language model</a></li>
+        <li><a href="#ring-resonator">Ring resonator</a></li>
+        <li><a href="#raytracer">ABCD ray tracer</a></li>
+      </ol>
+    </nav>
+
+    <div class="r-main">
+
+      <!-- ================= PERSONAL PROJECTS ================= -->
+      <section class="grp" id="personal" aria-labelledby="personal-h">
+        <header class="grp-head">
+          <h2 id="personal-h">Personal projects</h2>
+        </header>
+
+        <!-- ================= PENPLOT STUDIO ================= -->
+        <article class="chap" id="penplot" aria-labelledby="penplot-h">
+          <h3 class="chap-t" id="penplot-h">PenPlot Studio</h3>
+          <p class="lede">Turns a Bambu Lab 3D printer into a precision 2D plotter.</p>
+          <div class="prose">
+            <p>I use my 3D printer every day, and I've always wanted to use it as a pen plotter or precision paper and vinyl cutter. While hardware attachments existed, the software to design artwork and convert it into machine-ready, proprietary Bambu Lab G-code was underdeveloped. To fill that gap, I created PenPlot Studio, a design tool inspired by Inkscape and 3D-printing slicers that understands the printer's geometry and attached tools to generate safe, optimized toolpaths without firmware modifications.</p>
+            <p>PenPlot Studio converts SVGs, images, custom fonts, and handwritten drawings into G-code for plotting and cutting. It includes freehand drawing, image tracing, generative patterns, custom handwriting fonts, and automatic pen changes, with support for Bambu Lab and Marlin-based printers. I also built a simulated printer that previews each job and checks generated commands for unsafe movements before the G-code can be downloaded.</p>
+          </div>
+          <div class="figs">
+            <figure class="plate shot--clip">
+              <div class="clip-media"><img src="assets/img/projects/penplot-plot.jpg" alt="My 3D printer's toolhead holding a blue pen, drawing a detailed mandala on a sheet of paper taped to the print bed." width="1440" height="900" loading="lazy"><video src="assets/video/penplot-plot.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+              <figcaption><b>Plotting</b>My printer drawing a mandala from PenPlot Studio's G-code.</figcaption>
+            </figure>
+            <figure class="plate shot--clip">
+              <div class="clip-media"><img class="tw-d" src="assets/img/projects/penplot-sim-dark.jpg" alt="PenPlot Studio's preview with a finished three-pen spirograph on a white sheet: an 18-point blue star, a green star turned to sit between its points, and a red rosette in the round opening at the center, with the Spirograph generator selected on the left, the three pen layers on the right, and a playback bar at 25 times speed with a green G-code check passed badge." width="1920" height="1200" loading="lazy"><img class="tw-l" src="assets/img/projects/penplot-sim-light.jpg" alt="PenPlot Studio's preview with a finished three-pen spirograph on a white sheet: an 18-point blue star, a green star turned to sit between its points, and a red rosette in the round opening at the center, with the Spirograph generator selected on the left, the three pen layers on the right, and a playback bar at 25 times speed with a green G-code check passed badge." width="1920" height="1200" loading="lazy"><video class="tw-d" src="assets/video/penplot-sim-dark.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><video class="tw-l" src="assets/video/penplot-sim-light.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+              <figcaption><b>Simulation</b>The preview replays the G-code for a three-pen spirograph at 25× speed and checks it for unsafe moves.</figcaption>
+            </figure>
+          </div>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/penplot-studio">penplot-studio on GitHub</a></p>
+        </article>
+
+        <!-- ================= PANTRI ================= -->
+        <article class="chap" id="pantri" aria-labelledby="pantri-h">
+          <h3 class="chap-t" id="pantri-h">Pantri</h3>
+          <p class="lede">Recipes and shopping lists in one app, augmented with AI.</p>
+          <div class="prose">
+            <p>I wanted one app to keep track of my recipes and my shopping lists, because having both in one place is so convenient: pick a few recipes for the week, and their ingredients land on the right store's list. The tedious part is getting everything into the app in the first place, so I integrated AI models to bridge that gap.</p>
+            <p>Photograph a recipe card or cookbook page, or paste a link, and a self-hosted vision model reads it into a clean recipe, with each ingredient's amount, unit, and usual store already filled in. Photograph a handwritten list, and it fixes the spelling, expands shorthand like "EVOO," and sorts every item onto the right store's list. Everything syncs live across the household, and the Android app keeps working in a store with no signal.</p>
+          </div>
+          <div class="figs figs--3">
+            <figure class="plate plate--device">
+              <div class="dev">
+                <img class="tw-d" src="assets/img/projects/pantri-lists-dark.jpg" alt="Pantri showing the Costco list, with tabs for Costco, Winco, and Trader Joes. Olive oil and Parmesan cheese are marked as for Caesar Dressing, followed by chicken breasts, sweet potato, cheddar cheese, bacon, and avocado oil, with Brussels sprouts and ground beef checked off in the cart below." width="1080" height="2400" loading="lazy">
+                <img class="tw-l" src="assets/img/projects/pantri-lists-light.jpg" alt="Pantri showing the Costco list, with tabs for Costco, Winco, and Trader Joes. Olive oil and Parmesan cheese are marked as for Caesar Dressing, followed by chicken breasts, sweet potato, cheddar cheese, bacon, and avocado oil, with Brussels sprouts and ground beef checked off in the cart below." width="1080" height="2400" loading="lazy">
+              </div>
+              <figcaption>One list per store, with each item tied to the recipe that needs it.</figcaption>
+            </figure>
+            <figure class="plate plate--device">
+              <div class="dev">
+                <img class="tw-d" src="assets/img/projects/pantri-recipe-import-dark.jpg" alt="Pantri's new recipe screen reading 'Read from your photo. Check the ingredients and stores, then save', with a recipe named Caesar Dressing and ingredients including mayonnaise, olive oil, lemon juice, Dijon mustard, and garlic, each with an amount and its store, such as Harmons for the mayonnaise and Costco for the olive oil." width="1080" height="2400" loading="lazy">
+                <img class="tw-l" src="assets/img/projects/pantri-recipe-import-light.jpg" alt="Pantri's new recipe screen reading 'Read from your photo. Check the ingredients and stores, then save', with a recipe named Caesar Dressing and ingredients including mayonnaise, olive oil, lemon juice, Dijon mustard, and garlic, each with an amount and its store, such as Harmons for the mayonnaise and Costco for the olive oil." width="1080" height="2400" loading="lazy">
+              </div>
+              <figcaption>My Caesar dressing, read from a photo, with amounts and stores filled in.</figcaption>
+            </figure>
+            <figure class="plate plate--device">
+              <div class="dev">
+                <img class="tw-d" src="assets/img/projects/pantri-list-scan-dark.jpg" alt="Pantri's add from your list screen reading 'Read 10 items from your photo. 2 are new to your catalog', listing olive oil (written EVOO) at Costco, Worcestershire sauce (written worchestershire sauce) at Harmons, zucchini already on the Trader Joes list, and paper towels marked new, above a button that adds 10 items to lists across Costco, Harmons, Trader Joes, Winco, and Other." width="1080" height="2400" loading="lazy">
+                <img class="tw-l" src="assets/img/projects/pantri-list-scan-light.jpg" alt="Pantri's add from your list screen reading 'Read 10 items from your photo. 2 are new to your catalog', listing olive oil (written EVOO) at Costco, Worcestershire sauce (written worchestershire sauce) at Harmons, zucchini already on the Trader Joes list, and paper towels marked new, above a button that adds 10 items to lists across Costco, Harmons, Trader Joes, Winco, and Other." width="1080" height="2400" loading="lazy">
+              </div>
+              <figcaption>A handwritten list, read and sorted onto each store's list.</figcaption>
+            </figure>
+          </div>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/pantri">pantri on GitHub</a></p>
+        </article>
+
+        <!-- ================= MAESTRO ================= -->
+        <article class="chap" id="maestro" aria-labelledby="maestro-h">
+          <h3 class="chap-t" id="maestro-h">Maestro</h3>
+          <p class="lede">Sheet music that turns its own pages.</p>
+          <div class="prose">
+            <p>I play the piano, and turning the page means taking a hand off the keys. I wanted to turn pages hands-free, but at the time, there were only iOS apps available to do this. To fix this, I built Maestro, an Android sheet-music reader for a tablet on the music stand, inspired by forScore.</p>
+            <p>Maestro watches the front camera and turns the page when I turn my head, wink, smile, or hold a long blink. Face tracking runs entirely on the tablet, so no images leave it, and a hold time on every gesture, a long-blink threshold, and a cooldown after each turn keep it from turning in the middle of a passage.</p>
+          </div>
+          <div class="figs">
+            <figure class="plate plate--device plate--tablet">
+              <div class="dev">
+                <img class="tw-d" src="assets/img/projects/maestro-reader-dark.jpg" alt="Maestro reader on a tablet showing the first page of Liszt's Hungarian Rhapsody No. 2, page 1 of 20, with a Gestures switch and Settings in the top bar and a small badge reading Searching for face." width="1600" height="2560" loading="lazy">
+                <img class="tw-l" src="assets/img/projects/maestro-reader-light.jpg" alt="Maestro reader on a tablet showing the first page of Liszt's Hungarian Rhapsody No. 2, page 1 of 20, with a Gestures switch and Settings in the top bar and a small badge reading Searching for face." width="1600" height="2560" loading="lazy">
+              </div>
+              <figcaption>The first page of Liszt's Hungarian Rhapsody No. 2, with gesture control on.</figcaption>
+            </figure>
+            <figure class="plate plate--device plate--tablet">
+              <div class="dev">
+                <img class="tw-d" src="assets/img/projects/maestro-settings-dark.jpg" alt="Maestro settings: next page mapped to turn head right and previous page to turn head left, sliders for head-turn angle, eye-closed and smile thresholds, and anti-misfire timing of a 350 ms hold, a 700 ms long blink, and a 1200 ms cooldown." width="1600" height="2560" loading="lazy">
+                <img class="tw-l" src="assets/img/projects/maestro-settings-light.jpg" alt="Maestro settings: next page mapped to turn head right and previous page to turn head left, sliders for head-turn angle, eye-closed and smile thresholds, and anti-misfire timing of a 350 ms hold, a 700 ms long blink, and a 1200 ms cooldown." width="1600" height="2560" loading="lazy">
+              </div>
+              <figcaption>Gesture mapping, sensitivity, and anti-misfire timing.</figcaption>
+            </figure>
+          </div>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/maestro">maestro on GitHub</a></p>
+        </article>
+
+        <!-- ================= MOOD MUSIC ================= -->
+        <article class="chap" id="mood-music" aria-labelledby="mood-h">
+          <h3 class="chap-t" id="mood-h">Mood Music</h3>
+          <p class="lede">A live soundtrack that follows the mood of a conversation.</p>
+          <div class="prose">
+            <p>I wanted a live soundtrack for real life, so I built Mood Music. It listens to a conversation and generates original music that follows the mood as it changes, the way a film score follows a scene.</p>
+            <p>Whisper transcribes the speech as it's spoken, and Gemma 4, running locally, reads the transcript, rates its mood, and acts as the director, choosing a style, instruments, and tempo to match. Google's Magenta RealTime model turns those choices into continuous 48&nbsp;kHz stereo audio on a GPU and streams it to any browser or media player.</p>
+          </div>
+          <figure class="plate diagram fig-gap">
+            <div class="diagram-scroll"><svg viewBox="0 0 1030 158" role="img" aria-labelledby="mood-diag-t">
+              <title id="mood-diag-t">Mood Music pipeline: Whisper transcribes speech or typed text as it arrives; Gemma 4, running locally, reads the mood and directs the music, choosing a style, instruments, and tempo, and it is told what is playing now; Magenta RealTime generates the music on a GPU; and the result streams live as 48 kHz stereo MP3 or WAV.</title>
+              <defs><marker id="mood-arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head"/></marker>
+                <marker id="mood-arw-m" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head-mute"/></marker></defs>
+              <g class="d-blk"><rect x="2" y="24" width="228" height="84" rx="2"/><text class="d-t" x="18" y="54">Speech or text</text><text class="d-sub" x="18" y="76">Whisper transcribes</text><text class="d-sub" x="18" y="94">it as it's spoken</text></g>
+              <g class="d-blk"><rect x="268" y="24" width="228" height="84" rx="2"/><text class="d-t" x="284" y="54">Gemma 4</text><text class="d-sub" x="284" y="76">reads the mood and</text><text class="d-sub" x="284" y="94">directs the music</text></g>
+              <g class="d-blk"><rect x="534" y="24" width="228" height="84" rx="2"/><text class="d-t" x="550" y="54">Magenta RealTime</text><text class="d-sub" x="550" y="76">generates the music</text><text class="d-sub" x="550" y="94">on the GPU</text></g>
+              <g class="d-blk d-seal"><rect x="800" y="24" width="228" height="84" rx="2"/><text class="d-t" x="816" y="54">Live stream</text><text class="d-sub" x="816" y="76">48 kHz stereo,</text><text class="d-sub" x="816" y="94">MP3 or WAV</text></g>
+              <path class="d-flow" d="M230 66 H266" marker-end="url(#mood-arw)"/>
+              <path class="d-flow" d="M496 66 H532" marker-end="url(#mood-arw)"/>
+              <path class="d-flow" d="M762 66 H798" marker-end="url(#mood-arw)"/>
+              <path class="d-ctlp" d="M648 108 V132 H382 V110" marker-end="url(#mood-arw-m)"/><text class="d-sub" x="515" y="150" text-anchor="middle">what's playing now</text>
+            </svg></div>
+          </figure>
+          <div class="prose">
+            <p>The hard part was speed. Out of the box, Magenta RealTime took 47&nbsp;ms to generate each frame, too slow to keep up with playback. A small patch I wrote changes how the KV cache updates, which brought the model under its real-time budget.</p>
+          </div>
+          <figure class="plate mood-demo" id="mood-demo">
+            <div class="md-top">
+              <button class="md-play" type="button" aria-label="Play the Mood Music sample">
+                <svg class="md-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/><circle class="md-ring-fill" cx="32" cy="32" r="30" pathLength="1"/></svg>
+                <svg class="md-i md-i-spk" viewBox="0 0 24 24" aria-hidden="true"><path class="md-cone" d="M3.5 9.4h3.7l4.6-4v13.2l-4.6-4H3.5z"/><path class="md-w md-w1" d="M15.2 9.3a3.9 3.9 0 0 1 0 5.4"/><path class="md-w md-w2" d="M17.9 6.6a7.7 7.7 0 0 1 0 10.8"/></svg>
+                <svg class="md-i md-i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg>
+              </button>
+              <div class="md-title">
+                <p class="md-h">Three moods in 32 seconds</p>
+                <p class="md-sub">Press play and listen to the music follow the words.</p>
+              </div>
+              <p class="md-time" aria-hidden="true"><span>0:00</span> / 0:32</p>
+            </div>
+            <canvas class="md-viz" aria-hidden="true"></canvas>
+            <div class="md-body" aria-hidden="true">
+              <div class="md-said">
+                <p class="md-label">Heard</p>
+                <p class="md-text"></p>
+                <p class="md-by"></p>
+              </div>
+              <div class="md-mood">
+                <p class="md-label">Gemma 4 reads the mood</p>
+                <dl class="md-bars">
+                  <div><dt>Positivity</dt><dd><i></i></dd></div>
+                  <div><dt>Energy</dt><dd><i></i></dd></div>
+                  <div><dt>Tension</dt><dd><i></i></dd></div>
+                </dl>
+                <p class="md-label">and directs the music</p>
+                <ul class="md-tags"></ul>
+              </div>
+            </div>
+            <ol class="md-scenes"><li><button type="button" data-scene="0"><span>Kennedy</span><i aria-hidden="true"><b></b></i></button></li><li><button type="button" data-scene="1"><span>Roosevelt</span><i aria-hidden="true"><b></b></i></button></li><li><button type="button" data-scene="2"><span>Carroll</span><i aria-hidden="true"><b></b></i></button></li></ol>
+            <ol class="vh"><li>John F. Kennedy, 1962: “We choose to go to the Moon in this decade and do the other things, not because they are easy, but because they are hard.” Gemma 4 chose cinematic neo-classical, staccato violins, french horn, timpani, and triumphant.</li><li>Franklin D. Roosevelt, 1941: “Yesterday, December 7th, 1941, a date which will live in infamy, the United States of America was suddenly and deliberately attacked by naval and air forces of the Empire of Japan.” Gemma 4 chose dark hybrid trailer, low brass, distorted cellos, heavy percussion, and ominous.</li><li>Lewis Carroll, Through the Looking-Glass: “Why, sometimes I&#x27;ve believed as many as six impossible things before breakfast.” Gemma 4 chose minimalist piano, soft cello, glockenspiel, whimsical, and light.</li></ol>
+            <audio preload="none" src="assets/audio/mood-music-demo.mp3"></audio>
+            <script type="application/json" class="md-data">{"duration": 32.04, "scenes": [{"name": "Kennedy", "by": "John F. Kennedy, 1962", "type": 0.2, "at": 0, "mood": [0.7, 0.6, 0.4], "text": "We choose to go to the Moon in this decade and do the other things, not because they are easy, but because they are hard.", "tags": ["Cinematic neo-classical", "Staccato violins", "French horn", "Timpani", "Triumphant"]}, {"name": "Roosevelt", "by": "Franklin D. Roosevelt, 1941", "type": 7.6, "at": 11, "mood": [0.1, 0.8, 0.9], "text": "Yesterday, December 7th, 1941, a date which will live in infamy, the United States of America was suddenly and deliberately attacked by naval and air forces of the Empire of Japan.", "tags": ["Dark hybrid trailer", "Low brass", "Distorted cellos", "Heavy percussion", "Ominous"]}, {"name": "Carroll", "by": "Lewis Carroll, Through the Looking-Glass", "type": 17.6, "at": 21, "mood": [0.4, 0.3, 0.4], "text": "Why, sometimes I've believed as many as six impossible things before breakfast.", "tags": ["Minimalist piano", "Soft cello", "Glockenspiel", "Whimsical", "Light"]}]}</script>
+            <figcaption>Condensed from a four-minute run on my server: each line was typed in, Gemma 4 read it and chose the music, and Magenta RealTime played it.</figcaption>
+          </figure>
+        </article>
+
+        <!-- ================= CHESS LAB ================= -->
+        <article class="chap" id="chess-lab" aria-labelledby="chess-h">
+          <h3 class="chap-t" id="chess-h">Chess Lab</h3>
+          <p class="lede">Three chess variants in one app, with CPU, local, and online play.</p>
+          <div class="prose">
+            <p>Chess Lab is my exploration of adding additional rules to chess. I developed the idea for, built, and bundled all three variants in one game, as an Android app and Windows executable. It supports CPU opponents, two-player single device, LAN games, and online play via a dockerized container.</p>
+          </div>
+          <div class="vrows">
+            <div class="vrow">
+              <div class="vrow-t">
+                <h4>3D Chess</h4>
+                <p>Chess inside an 8×8×8 cube, where each piece is defined by which axes it can move along, plus two new pieces, the prince and princess. I developed the neural network for 3D Chess because Stockfish couldn't play it. Trained by self-play, it guides a search written for the cube, and its second generation beats the hand-tuned evaluation by 59 Elo over 400 games.</p>
+              </div>
+              <figure class="plate shot--clip"><div class="clip-media"><img src="assets/img/projects/chess-lab-3d-dark.jpg" alt="3D Chess at the opening position against the computer: a translucent 8 by 8 by 8 cube of white and dark grey pieces on labeled X, Y, and Z axes, with panels for the match, the turn, the selection, and the moves." width="1920" height="1200" loading="lazy"><video src="assets/video/chess-lab-3d.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></figure>
+            </div>
+            <div class="vrow">
+              <div class="vrow-t">
+                <h4>Blind Chess</h4>
+                <p>Each player secretly arranges their army across their first two ranks. You see where every enemy piece stands but not what it is, so you deduce identities from how pieces move and tag your guesses. The computer plays fair on an adapted Stockfish: it tracks what each of your pieces could still be, samples complete boards that fit, and has Stockfish score each one.</p>
+              </div>
+              <figure class="plate shot--clip"><div class="clip-media"><img src="assets/img/projects/chess-lab-blind-dark.jpg" alt="Blind Chess at the start of a game against the computer: Black's sixteen pieces are gold question-mark shadows, White's shuffled army fills the first two ranks, and the side panel shows the turn, captures, and moves." width="1920" height="1200" loading="lazy"><video src="assets/video/chess-lab-blind.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></figure>
+            </div>
+            <div class="vrow">
+              <div class="vrow-t">
+                <h4>Quantum Chess</h4>
+                <p>A piece with exactly two legal moves can split into both squares at once, and its branches can split again. Moving through a split piece observes it and collapses it to one square, and a branch that lands on an enemy branch entangles the two until a measurement settles the capture. The computer adapts Stockfish by measuring the position into ordinary boards and having Stockfish judge each one.</p>
+              </div>
+              <figure class="plate shot--clip"><div class="clip-media"><img src="assets/img/projects/chess-lab-quantum-dark.jpg" alt="Quantum Chess on a purple board after 1. d4 d5, with the move history and buttons to split a piece, resign, or exit." width="1920" height="1200" loading="lazy"><video src="assets/video/chess-lab-quantum.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================= HOME LAB ================= -->
+        <article class="chap" id="home-lab" aria-labelledby="home-h">
+          <h3 class="chap-t" id="home-h">Home Lab Setup</h3>
+          <p class="lede">Self-hosted tools, files, and backups</p>
+          <div class="prose">
+            <p>I love self-hosting, and I run a distributed network of machines to keep my photos, documents, and backups private, synchronized, and highly available. To manage the system, I developed a suite of custom dashboards and tools that give me visibility into network topology, service availability, open ports, transfer speeds, and overall system health.</p>
+            <p>Tailnet Console visualizes my network in real time, maps machines by measured latency, monitors service health, and supports automatic failover to a standby host in about 30 seconds. Syncthing Console tracks file synchronization across machines and maintains 35 days of history. Immich Dashboard transforms my self-hosted photo library into a rotating photo frame with live weather for TVs and wall-mounted tablets.</p>
+          </div>
+          <div class="figs figs--1">
+            <figure class="plate shot--clip">
+              <div class="clip-media"><img src="assets/img/projects/tailnet-console-dark.jpg" alt="Tailnet Console's live map, headed 'Every machine is reachable': seven machines, including Vega and Rigel at the top, Sirius and Deneb at the left, a phone, and Polaris at the bottom right, are joined by solid direct links and dashed relayed links carrying streams of blue dots, beside stats of 7 of 7 machines, 18 of 18 services up, and 48 ms typical latency, and a list of each machine's services with green status dots." width="1920" height="1200" loading="lazy"><video src="assets/video/tailnet-console.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+              <figcaption><b>Tailnet Console</b>Machines placed by measured ping, with traffic streaming along each link, beside every service and its health.</figcaption>
+            </figure>
+          </div>
+          <div class="figs fig-gap-s">
+            <figure class="plate shot--clip">
+              <div class="clip-media"><img src="assets/img/projects/syncthing-console-dark.jpg" alt="Syncthing Console overview headed 'Sirius is catching up on Photos', with stats for the transfer rate, data moved in the last 24 hours, lowest uptime, and open issues; a diagram of three machines, Vega, Deneb, and Sirius, with a wavy transfer line arcing from Vega to Sirius; a Now panel with a progress bar for Photos to Sirius and two notices; and four folder cards, Backups, Documents, Photos, and Shared, showing which machines hold each copy." width="1920" height="1200" loading="lazy"><video src="assets/video/syncthing-console.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+              <figcaption><b>Syncthing Console</b>Three machines and four shared folders, with a sync running live between two of them.</figcaption>
+            </figure>
+            <figure class="plate shot--clip">
+              <div class="clip-media"><img src="assets/img/projects/immich-dashboard-dark.jpg" alt="Immich Dashboard's forecast layout on a dark blue backdrop tinted by the photo: the time and date, a large sun icon and 59°, 'Clear through the day, high of 60°', tiles for wind, air quality, UV, and sunset, a 24-hour temperature curve with sun and moon icons, a 7-day forecast with range bars, and a framed photo of Moraine Lake, with snowy peaks reflected in turquoise water, captioned Moraine Lake, Alberta." width="1920" height="1200" loading="lazy"><video src="assets/video/immich-dashboard.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+              <figcaption><b>Immich Dashboard</b>The forecast layout, with animated weather icons and the photo drifting slowly in a framed print.</figcaption>
+            </figure>
+          </div>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/immich-dashboard">immich-dashboard on GitHub</a></p>
+
+          <section class="sub" id="avogadro" aria-labelledby="avo-h">
+            <h4 id="avo-h">Avogadro</h4>
+            <p class="sub-lede">A private, self-hosted search page built on SearXNG.</p>
+            <div class="prose">
+              <p>Avogadro is my front end for SearXNG, a self-hosted metasearch engine, built for secure searching. The page only ever talks to my own server, and strict Content Security Policy blocks every third-party request, images and icons come through SearXNG's proxy, and links never pass my searches on to the sites I open.</p>
+              <p>Avogadro also uses my a custom SearXNG plugin that I wrote for better results. It folds mobile, AMP, and duplicate copies of a page, and papers listed under the same DOI, into a single result, so the engines that found them pool their votes and the page ranks where it should. The name is a play on words of another very large number, like googol.</p>
+            </div>
+            <figure class="plate avo-fig">
+              <div class="avo">
+                <canvas class="avo-cv" aria-hidden="true"></canvas>
+                <span class="avo-mark" aria-hidden="true">Avogadro</span>
+                <div class="avo-q" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg>
+                  <span>Search</span>
+                </div>
+              </div>
+              <figcaption><span class="inst-h">Live: Avogadro's search page</span></figcaption>
+            </figure>
+            <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/avogadro">avogadro on GitHub</a></p>
+          </section>
+        </article>
+
+        <!-- ================= WORDLEBOT ================= -->
+        <article class="chap" id="wordlebot" aria-labelledby="wordle-h">
+          <h3 class="chap-t" id="wordle-h">WordleBot</h3>
+          <p class="lede">A Wordle solver that maximizes information gain.</p>
+          <div class="prose">
+            <p>I wrote WordleBot to solve Wordle by maximizing information gain. It evaluates each possible guess against the remaining answers, selecting the one that minimizes the expected number of candidates left. Cached decisions let it solve games in milliseconds.</p>
+          </div>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/WordleBot">WordleBot on GitHub</a></p>
+        </article>
+
+        <!-- ================= BEYOND THE STARS ================= -->
+        <article class="chap" id="beyond-the-stars" aria-labelledby="bts-h">
+          <h3 class="chap-t" id="bts-h">Beyond the Stars</h3>
+          <p class="lede">A fusion of science fiction and high fantasy.</p>
+          <div class="prose">
+            <p>I wrote Beyond the Stars, a space opera of about 80,000 words. Soon to be published on Kindle Direct Publishing.</p>
+          </div>
+          <figure class="book"><img src="assets/img/projects/beyond-the-stars-cover.jpg" width="720" height="1082" loading="lazy" decoding="async" alt="The cover of Beyond the Stars by Joshua Montierth: the title over a starfield and the Milky Way, above the curve of a blue-lit planet with a small moon."></figure>
+        </article>
+      </section>
+
+      <!-- ================= SCHOOL PROJECTS ================= -->
+      <section class="grp" id="school" aria-labelledby="school-h">
+        <header class="grp-head">
+          <h2 id="school-h">School projects</h2>
+          <p>I love learning. I've intentionally selected coursework and projects that complement and supplement my career as a wireless engineer. I believe having a broad education allows me to approach problems from unique angles and develop innovative solutions.</p>
+        </header>
+
+        <!-- ================= LANGUAGE MODEL ================= -->
+        <article class="chap" id="language-model" aria-labelledby="llm-h">
+          <h3 class="chap-t" id="llm-h">Training a language model from scratch</h3>
+          <p class="lede">A 359-million-parameter chat model, trained from scratch on one GPU.</p>
+          <div class="prose">
+            <p>For my final project in BYU's deep learning course (CS 474), I built the full pipeline behind modern chat models and trained it end to end from random weights. The model is a LLaMA-style decoder with 24 layers, 16 attention heads, rotary position embeddings, SwiGLU, and RMSNorm. I pre-trained it on 3.8 billion tokens of English Wikipedia and OpenWebText using a 50,000-token BPE tokenizer I trained myself, fine-tuned it on 52,000 Alpaca instructions, and aligned it with Direct Preference Optimization on 60,000 UltraFeedback preference pairs.</p>
+            <p>Everything ran on a single 20&nbsp;GB RTX A4500 with bf16 mixed precision, torch.compile, and Flash Attention, and pre-training reached a validation loss of 2.80, a perplexity of about 16. I converted the final model to GGUF and served it through Ollama and Open WebUI.</p>
+          </div>
+          <figure class="plate diagram fig-gap">
+            <div class="diagram-scroll"><svg viewBox="0 0 1030 150" role="img" aria-labelledby="llm-diag-t">
+              <title id="llm-diag-t">Training pipeline: 3.8 billion tokens of Wikipedia and OpenWebText with a 50K BPE tokenizer, pre-training a 359 million parameter model to a validation loss of 2.80, instruction tuning on 52K Alpaca examples to a validation loss of 2.04, preference tuning with DPO on 60K pairs, and deployment as GGUF through Ollama and Open WebUI.</title>
+              <defs><marker id="llm-arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head"/></marker></defs>
+              <g class="d-blk"><rect x="5" y="30" width="180" height="84" rx="2"/><text class="d-t" x="21" y="60">Data</text><text class="d-sub" x="21" y="82">Wikipedia, OpenWebText</text><text class="d-sub" x="21" y="100">3.8B tokens, 50K BPE</text></g>
+              <g class="d-blk"><rect x="215" y="30" width="180" height="84" rx="2"/><text class="d-t" x="231" y="60">Pre-training</text><text class="d-sub" x="231" y="82">359M parameters</text><text class="d-sub" x="231" y="100">validation loss 2.80</text></g>
+              <g class="d-blk"><rect x="425" y="30" width="180" height="84" rx="2"/><text class="d-t" x="441" y="60">Instruction tuning</text><text class="d-sub" x="441" y="82">52K Alpaca examples</text><text class="d-sub" x="441" y="100">validation loss 2.04</text></g>
+              <g class="d-blk"><rect x="635" y="30" width="180" height="84" rx="2"/><text class="d-t" x="651" y="60">Preference tuning</text><text class="d-sub" x="651" y="82">DPO on 60K pairs</text><text class="d-sub" x="651" y="100">63% preference accuracy</text></g>
+              <g class="d-blk d-seal"><rect x="845" y="30" width="180" height="84" rx="2"/><text class="d-t" x="861" y="60">Deployment</text><text class="d-sub" x="861" y="82">GGUF and Ollama</text><text class="d-sub" x="861" y="100">Open WebUI chat</text></g>
+              <path class="d-flow" d="M185 72 H213" marker-end="url(#llm-arw)"/>
+              <path class="d-flow" d="M395 72 H423" marker-end="url(#llm-arw)"/>
+              <path class="d-flow" d="M605 72 H633" marker-end="url(#llm-arw)"/>
+              <path class="d-flow" d="M815 72 H843" marker-end="url(#llm-arw)"/>
+            </svg></div>
+           </figure>
+        </article>
+
+        <!-- ================= RING RESONATOR ================= -->
+        <article class="chap" id="ring-resonator" aria-labelledby="ring-h">
+          <h3 class="chap-t" id="ring-h">A silicon photonic ring resonator</h3>
+          <p class="lede">A narrowband optical filter</p>
+          <div class="prose">
+            <p>In a course on quantum optics, I designed a photonic ring resonator, which I then fabricated and tested. It was manufactured on the SiEPIC open electron-beam lithography run in February 2026, on 220&nbsp;nm silicon-on-insulator. The purpose of the project was to create a narrowbandwidth filter for optical signal processing, and test the manufacturing tolerances of the fabrication process to assess practical feasibility of the design.</p>
+          </div>
+          <div class="figs figs--1">
+            <figure class="plate plate--fig is-natural fig-ebl">
+              <img class="tw-d" src="assets/img/projects/openebl-layout-dark.jpg" alt="Silicon photonics layout: three circuits, each with four grating couplers on the left and a bus waveguide running past three ring resonators whose drop ports route to their own couplers, with a 40 micrometre scale bar." width="1600" height="1303" loading="lazy">
+              <img class="tw-l" src="assets/img/projects/openebl-layout-light.jpg" alt="Silicon photonics layout: three circuits, each with four grating couplers on the left and a bus waveguide running past three ring resonators whose drop ports route to their own couplers, with a 40 micrometre scale bar." width="1600" height="1303" loading="lazy">
+              <figcaption>The layout: three banks of add-drop ring resonators, fed through grating couplers. Scale bar 40&nbsp;µm.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- ================= ABCD RAY TRACER ================= -->
+        <article class="chap" id="raytracer" aria-labelledby="rt-h">
+          <h3 class="chap-t" id="rt-h">ABCD ray tracer</h3>
+          <p class="lede">Interactive paraxial optics with ABCD matrices.</p>
+          <div class="prose">
+            <p>I built an interactive ray tracer for paraxial optics. Drag lenses, prisms, gratings, and mirrors onto an optical rail, tune their parameters, and watch rays propagate through each element's ABCD matrix.</p>
+            <p>Try a two-lens version here: drag a lens along the rail to move it, or up and down to change its focal length.</p>
+          </div>
+          <figure class="inst rt">
+            <canvas class="rt-cv" tabindex="0" role="img" aria-label="Interactive ray diagram: rays from an object pass through two thin lenses and form an image. Drag a lens sideways to move it or up and down to change its focal length; with the keyboard, Tab focuses the diagram, the arrow keys move and refocus the selected lens, and Space switches lenses."></canvas>
+            <div class="rt-mx" aria-hidden="true"></div>
+            <figcaption><span class="inst-h">Live: two thin lenses on an optical rail</span>The system matrix M is the product of each element's matrix, applied right to left in the order the light meets them. At the image, B is zero, so every ray from the arrow's tip lands on one point, and A is the magnification.</figcaption>
+          </figure>
+          <p class="links"><a class="lnk" href="https://github.com/joshuamontierth/Optical-Raytracing">Optical-Raytracing on GitHub</a></p>
+        </article>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="foot"><p>© 2026 Joshua Montierth.</p></footer>
+<script src="js/theme.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
