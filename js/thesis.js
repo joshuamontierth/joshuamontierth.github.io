@@ -1,5 +1,6 @@
 (() => {
   "use strict";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   // reading progress
   const bar = document.getElementById("progress");
   const doc = document.querySelector(".doc");
@@ -7,7 +8,7 @@
     if (!bar || !doc) return;
     const r = doc.getBoundingClientRect();
     const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
-    bar.style.width = (p * 100).toFixed(2) + "%";
+    bar.style.transform = `scaleX(${p.toFixed(4)})`;
   };
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -28,7 +29,7 @@
         const toc = document.querySelector(".toc");
         if (toc && getComputedStyle(toc).position === "sticky") {
           const t = a.offsetTop - toc.clientHeight / 2;
-          toc.scrollTo({ top: t, behavior: "smooth" });
+          toc.scrollTo({ top: t, behavior: reduce.matches ? "auto" : "smooth" });
         }
       }
     }

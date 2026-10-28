@@ -15,9 +15,10 @@
   // ---------- the one load moment ----------
   if (hero) {
     $$("[data-reveal]", hero).forEach((el, i) => el.style.setProperty("--rd", 120 + i * 110 + "ms"));
-    const go = () => requestAnimationFrame(() => hero.classList.add("is-on"));
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(go);
-    setTimeout(go, 1200);
+    // the fonts are preloaded and the reveal starts blurred, so it needn't wait for them
+    const go = () => hero.classList.add("is-on");
+    requestAnimationFrame(() => requestAnimationFrame(go));
+    setTimeout(go, 300);
   }
 
   // ---------- section headings sweep on once ----------
@@ -43,7 +44,7 @@
         a.classList.add("is-on");
         on = a;
         const list = a.closest(".rail");
-        if (list && list.scrollWidth > list.clientWidth) list.scrollTo({ left: a.parentElement.offsetLeft - list.clientWidth / 2 + a.offsetWidth / 2, behavior: "smooth" });
+        if (list && list.scrollWidth > list.clientWidth) list.scrollTo({ left: a.parentElement.offsetLeft - list.clientWidth / 2 + a.offsetWidth / 2, behavior: reduce.matches ? "auto" : "smooth" });
       }
     }, { rootMargin: "-30% 0px -60% 0px" });
     [...byId.keys()].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
@@ -596,7 +597,7 @@
 
   // ---------- click a photo or a clip to see it large ----------
   // The picture grows out of its place on the page and shrinks back into it when closed.
-  const zoomFigs = $$(".r-main figure").filter((f) => !f.matches(".diagram, .inst, .mood-demo, .avo-fig, .wifi-phone") && $("img", f));
+  const zoomFigs = $$(".r-main figure").filter((f) => !f.matches(".diagram, .inst, .mood-demo, .wifi-phone") && $("img", f));
   if (zoomFigs.length && window.HTMLDialogElement) {
     const lb = document.createElement("dialog");
     lb.className = "lb";
@@ -637,12 +638,15 @@
       media.style.height = Math.round(nat[1] * k) + "px";
     }
     function flip(a, m, out) {
+      // a close can interrupt the open: start from wherever the picture is now, measured at rest
+      const at = out ? getComputedStyle(m).transform : "none";
+      m.getAnimations().forEach((x) => x.cancel());
       const r0 = a.getBoundingClientRect(), r1 = m.getBoundingClientRect();
       if (!r0.width || !r1.width) return Promise.resolve();
       const s = Math.min(r0.width / r1.width, r0.height / r1.height);
       const dx = r0.left + r0.width / 2 - (r1.left + r1.width / 2), dy = r0.top + r0.height / 2 - (r1.top + r1.height / 2);
-      const small = { transform: `translate(${dx}px, ${dy}px) scale(${s})` }, big = { transform: "none" };
-      return m.animate(out ? [big, small] : [small, big], { duration: out ? 300 : 420, easing: out ? "cubic-bezier(0.5, 0, 0.75, 0)" : "cubic-bezier(0.16, 1, 0.3, 1)", fill: "both" }).finished;
+      const small = { transform: `translate(${dx}px, ${dy}px) scale(${s})` };
+      return m.animate(out ? [{ transform: at }, small] : [small, { transform: "none" }], { duration: out ? 280 : 420, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "both" }).finished;
     }
     function open(f, area, clip) {
       if (busy || lb.open) return;
@@ -653,14 +657,14 @@
         media = document.createElement("video");
         media.muted = true; media.loop = true; media.playsInline = true;
         media.setAttribute("muted", ""); media.setAttribute("playsinline", "");
-        media.poster = still.currentSrc || still.src;
+        media.poster = still.src;   // the full-size original, not the copy sized for the page
         media.src = tv.currentSrc || tv.src;
         media.setAttribute("aria-label", still.alt);
         if (tv.currentTime) media.addEventListener("loadedmetadata", () => { media && (media.currentTime = tv.currentTime); }, { once: true });
         if (!reduce.matches) media.play().catch(() => {});
       } else {
         media = document.createElement("img");
-        media.src = still.currentSrc || still.src;
+        media.src = still.src;   // the full-size original, not the copy sized for the page
         media.alt = still.alt;
       }
       media.className = "lb-media";
@@ -684,7 +688,7 @@
       if (!reduce.matches && media) {
         const r = from.getBoundingClientRect(), inView = r.bottom > 0 && r.top < innerHeight;
         cap.animate({ opacity: [1, 0] }, { duration: 140, fill: "forwards" });
-        try { lb.animate({ opacity: [1, 0] }, { duration: 300, easing: "ease-in", pseudoElement: "::backdrop", fill: "forwards" }); } catch (e) { /* no backdrop fade */ }
+        try { lb.animate({ opacity: [1, 0] }, { duration: 240, easing: "ease-out", pseudoElement: "::backdrop", fill: "forwards" }); } catch (e) { /* no backdrop fade */ }
         const done = inView ? flip(from, media, true) : media.animate({ opacity: [1, 0], transform: ["none", "scale(0.96)"] }, { duration: 200, fill: "forwards" }).finished;
         await done.catch(() => {});
       }
@@ -720,7 +724,8 @@
         const go = v.play();
         (go && go.then ? go : Promise.resolve()).then(() => fig.classList.add("is-playing")).catch(() => {});
       };
-      fig._off = () => { fig.classList.remove("is-playing"); $$("video", fig).forEach((v) => v.pause()); };
+      // pausing keeps the frame it stopped on; the still only covers a clip that hasn't played yet
+      fig._off = () => { $$("video", fig).forEach((v) => v.pause()); };
     });
     if ("IntersectionObserver" in window) {
       const near = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { load(shown(e.target)); near.unobserve(e.target); } }), { rootMargin: "600px 0px" });
@@ -732,170 +737,6 @@
     } else clipShots.forEach((fig) => fig._on());
     document.addEventListener("visibilitychange", () => clipShots.forEach((fig) => (document.hidden ? fig._off() : fig._in && fig._on())));
     if (window.siteTheme) window.siteTheme.on(() => clipShots.forEach((fig) => { if (fig._in) fig._on(); }));
-  }
-
-  // ---------- Avogadro: a hydrogen atom's electron cloud behind the search box ----------
-  // Ported from the project's own cloud.js. Every dot is one sample of |ψ|², so dense
-  // regions glow and the nodes stay dark; the two colours are the wavefunction's two signs.
-  const avo = $(".avo");
-  if (avo) avogadro(avo);
-  function avogadro(root) {
-    const cv = $(".avo-cv", root), ctx = cv.getContext("2d"), field = $(".avo-q", root);
-    const exp = Math.exp;
-    // radial part R(r) in Bohr radii (unnormalized) and the real angular part on the unit sphere
-    const ORBITALS = [
-      { n: 1, R: (r) => exp(-r), Y: () => 1 }, // 1s
-      { n: 2, R: (r) => r * exp(-r / 2), Y: (x, y, z) => z }, // 2p z
-      { n: 3, R: (r) => r * r * exp(-r / 3), Y: (x, y, z) => 3 * z * z - 1 }, // 3d z²
-      { n: 3, R: (r) => (27 - 18 * r + 2 * r * r) * exp(-r / 3), Y: () => 1 }, // 3s
-      { n: 3, R: (r) => r * r * exp(-r / 3), Y: (x, y) => x * x - y * y }, // 3d x²−y²
-      { n: 4, R: (r) => r * r * r * exp(-r / 4), Y: (x, y, z) => x * y * z }, // 4f xyz
-      { n: 3, R: (r) => r * (6 - r) * exp(-r / 3), Y: (x) => x }, // 3p x
-      { n: 4, R: (r) => r * r * r * exp(-r / 4), Y: (x, y, z) => z * (5 * z * z - 3) }, // 4f z³
-    ];
-    const FRAME_MS = 1000 / 30, PERSP = 3.6, SHARP = 1.7;
-    let W = 0, H = 0, count = 0, atom = null, photons = [], running = false, visible = false, lastFrame = 0, lastTick = 0, inks, alphas, blend;
-    const rand = (a, b) => a + Math.random() * (b - a);
-    const ease = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
-
-    function theme() {
-      const light = window.siteTheme ? window.siteTheme.current() === "light" : matchMedia("(prefers-color-scheme: light)").matches;
-      if (light) { inks = ["20,28,40", "10,97,192"]; alphas = [0.5, 0.36, 0.22]; blend = "source-over"; }
-      else { inks = ["226,234,246", "140,202,255"]; alphas = [0.8, 0.55, 0.32]; blend = "lighter"; }
-    }
-    function prepare(orb) {
-      if (orb.cdf) return orb;
-      const steps = 900, rmax = 3 * orb.n * (orb.n + 2), rs = new Float64Array(steps + 1), cdf = new Float64Array(steps + 1);
-      let acc = 0, k = 0, ymax = 0;
-      for (let i = 0; i <= steps; i++) { const r = (i / steps) * rmax; acc += r * r * Math.pow(Math.abs(orb.R(r)), 2 * SHARP); rs[i] = r; cdf[i] = acc; }
-      for (let i = 0; i <= steps; i++) cdf[i] /= acc;
-      while (cdf[k] < 0.9) k++;
-      for (let i = 0; i < 6000; i++) {
-        const z = 2 * Math.random() - 1, t = 2 * Math.PI * Math.random(), s = Math.sqrt(1 - z * z);
-        ymax = Math.max(ymax, Math.pow(Math.abs(orb.Y(s * Math.cos(t), s * Math.sin(t), z)), 2 * SHARP));
-      }
-      return Object.assign(orb, { rs, cdf, scale: 1 / rs[k], ymax: ymax * 1.05 });
-    }
-    function radius(orb) {
-      const u = Math.random(), c = orb.cdf;
-      let lo = 0, hi = c.length - 1;
-      while (lo < hi) { const mid = (lo + hi) >> 1; if (c[mid] < u) lo = mid + 1; else hi = mid; }
-      if (lo === 0) return 0;
-      const f = (u - c[lo - 1]) / (c[lo] - c[lo - 1] || 1);
-      return orb.rs[lo - 1] + f * (orb.rs[lo] - orb.rs[lo - 1]);
-    }
-    function sample(index, out) {
-      const orb = prepare(ORBITALS[index]);
-      for (let i = 0; i < count; i++) {
-        let x, y, z, v;
-        do {
-          z = 2 * Math.random() - 1;
-          const t = 2 * Math.PI * Math.random(), s = Math.sqrt(1 - z * z);
-          x = s * Math.cos(t); y = s * Math.sin(t); v = orb.Y(x, y, z);
-        } while (Math.random() * orb.ymax > Math.pow(Math.abs(v), 2 * SHARP));
-        const r = radius(orb), k = r * orb.scale, o = i * 4;
-        out[o] = x * k; out[o + 1] = y * k; out[o + 2] = z * k; out[o + 3] = orb.R(r) * v < 0 ? 1 : 0;
-      }
-    }
-    function makeAtom(orbital, now) {
-      const a = { orbital, pos: new Float32Array(count * 4), src: new Float32Array(count * 4), dst: new Float32Array(count * 4), pool: new Float32Array(count * 4), poolAt: 0,
-        blink: new Float32Array(count), proj: new Float32Array(count * 3), morph: 1, morphStart: 0, morphDur: 1, yaw: rand(0, Math.PI * 2), tilt: rand(0, Math.PI * 2), next: now + rand(6, 9) };
-      sample(orbital, a.pos); sample(orbital, a.pool);
-      for (let i = 0; i < count; i++) a.blink[i] = Math.random();
-      return a;
-    }
-    function jump(a, orbital, now, dur) {
-      a.src.set(a.pos); sample(orbital, a.dst); sample(orbital, a.pool);
-      Object.assign(a, { orbital, morph: 0, morphStart: now, morphDur: dur, next: now + dur + rand(7, 10) });
-    }
-    const nextOrbital = (a) => { let i; do i = (Math.random() * ORBITALS.length) | 0; while (i === a.orbital); return i; };
-    function place() {
-      const r = root.getBoundingClientRect(), f = field.getBoundingClientRect();
-      return { cx: f.left - r.left + f.width / 2, cy: f.top - r.top + f.height / 2, size: Math.min(W, H) * 0.46 };
-    }
-    function update(a, now, dt) {
-      a.yaw += dt * 0.16; a.tilt += dt * 0.05;
-      if (a.morph < 1) {
-        a.morph = Math.min(1, (now - a.morphStart) / a.morphDur);
-        const e = ease(a.morph), twist = Math.sin(Math.PI * e) * 0.9, c = Math.cos(twist), s = Math.sin(twist);
-        for (let i = 0; i < count * 4; i += 4) {
-          const x = a.src[i] + (a.dst[i] - a.src[i]) * e, y = a.src[i + 1] + (a.dst[i + 1] - a.src[i + 1]) * e;
-          a.pos[i] = x * c - y * s; a.pos[i + 1] = x * s + y * c;
-          a.pos[i + 2] = a.src[i + 2] + (a.dst[i + 2] - a.src[i + 2]) * e;
-          a.pos[i + 3] = e < 0.5 ? a.src[i + 3] : a.dst[i + 3];
-        }
-      } else {
-        // the cloud is never still: a few electrons are "measured" somewhere new each frame
-        for (let j = 0, n = Math.ceil(count * 0.02); j < n; j++) {
-          const i = ((Math.random() * count) | 0) * 4, p = a.poolAt * 4;
-          a.pos[i] = a.pool[p]; a.pos[i + 1] = a.pool[p + 1]; a.pos[i + 2] = a.pool[p + 2]; a.pos[i + 3] = a.pool[p + 3];
-          a.poolAt = (a.poolAt + 1) % count;
-        }
-        // on its own page a search excites the atom; here it jumps every few seconds
-        if (now >= a.next) { photons.push({ born: now }); jump(a, nextOrbital(a), now, 1.4); }
-      }
-    }
-    function draw(now) {
-      ctx.clearRect(0, 0, W, H);
-      if (!atom) return;
-      ctx.globalCompositeOperation = blend;
-      const { cx, cy, size } = place(), a = atom;
-      const pitch = 0.42 + Math.sin(a.tilt) * 0.22, cosY = Math.cos(a.yaw), sinY = Math.sin(a.yaw), cosP = Math.cos(pitch), sinP = Math.sin(pitch);
-      const P = a.proj, pos = a.pos;
-      for (let i = 0, j = 0; i < count; i++, j += 4) {
-        const x = pos[j] * cosY - pos[j + 1] * sinY, y = pos[j] * sinY + pos[j + 1] * cosY;
-        const z = pos[j + 2] * cosP - y * sinP, depth = pos[j + 2] * sinP + y * cosP, f = PERSP / (PERSP + depth);
-        P[i * 3] = cx + x * size * f; P[i * 3 + 1] = cy - z * size * f;
-        P[i * 3 + 2] = (depth < -0.3 ? 0 : depth < 0.3 ? 1 : 2) + pos[j + 3] * 3;
-      }
-      const t = now * 0.9;
-      for (let bin = 0; bin < 6; bin++) {
-        const near = bin % 3, r = [1.1, 0.85, 0.6][near];
-        ctx.beginPath();
-        for (let i = 0; i < count; i++) {
-          if (P[i * 3 + 2] !== bin) continue;
-          if ((a.blink[i] + t * (0.6 + a.blink[i] * 0.5)) % 1 < 0.1) continue; // each dot blinks out briefly, so the cloud shimmers
-          ctx.rect(P[i * 3] - r, P[i * 3 + 1] - r, r * 2, r * 2);
-        }
-        ctx.fillStyle = `rgba(${inks[bin < 3 ? 0 : 1]},${alphas[near]})`;
-        ctx.fill();
-      }
-      // photons: the light given off when the atom drops to its new orbital
-      photons = photons.filter((p) => now - p.born < 1.4);
-      for (const p of photons) {
-        const u = (now - p.born) / 1.4;
-        ctx.beginPath(); ctx.arc(cx, cy, size * (0.35 + u * 1.6), 0, Math.PI * 2);
-        ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${inks[1]},${(0.55 * (1 - u) * (1 - u)).toFixed(3)})`; ctx.stroke();
-      }
-      ctx.globalCompositeOperation = "source-over";
-    }
-    function frame(ts) {
-      if (!running) return;
-      requestAnimationFrame(frame);
-      if (ts - lastFrame < FRAME_MS) return;
-      const now = ts / 1000, dt = Math.min(0.1, lastTick ? now - lastTick : 0);
-      lastFrame = ts; lastTick = now;
-      update(atom, now, dt); draw(now);
-    }
-    const start = () => { if (running || reduce.matches || !visible || document.hidden) return; running = true; lastTick = 0; requestAnimationFrame(frame); };
-    const stop = () => { running = false; };
-    function still() { stop(); if (atom.orbital !== 2) { atom.orbital = 2; sample(2, atom.pos); } Object.assign(atom, { yaw: 0.7, tilt: 0.4, morph: 1 }); draw(0); }
-    function resize() {
-      const r = root.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
-      if (!r.width) return;
-      W = r.width; H = r.height;
-      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const want = Math.round(Math.min(6000, Math.max(2400, 9000 * Math.sqrt((W * H) / (1440 * 900)))));
-      if (!atom || Math.abs(want - count) / count > 0.3) { count = want; atom = makeAtom(atom ? atom.orbital : 2, performance.now() / 1000); }
-      if (reduce.matches) still(); else draw(performance.now() / 1000);
-    }
-    theme(); resize();
-    if ("IntersectionObserver" in window) new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) start(); else stop(); }).observe(root);
-    else { visible = true; start(); }
-    addEventListener("resize", resize, { passive: true });
-    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
-    if (window.siteTheme) window.siteTheme.on(() => { theme(); if (!running) draw(performance.now() / 1000); });
   }
 
   // ---------- talk clips ----------

@@ -4,11 +4,11 @@
 .bar-doc { justify-self: center; font-size: 13.5px; color: var(--fg-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bar-doc span { font-weight: 600; margin-left: 8px; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
 .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; }
-.progress i { display: block; height: 100%; width: 0; background: var(--sig); transform-origin: left; }
+.progress i { display: block; width: 100%; height: 100%; background: var(--sig); transform: scaleX(0); transform-origin: left; }
 
 .reader-grid {
   display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 64px;
-  max-width: 1340px; margin: 0 auto; padding: calc(var(--bar-h) + 48px) var(--pad) 0;
+  max-width: calc(var(--max) + 2 * var(--pad)); margin: 0 auto; padding: calc(var(--bar-h) + 48px) var(--pad) 0;
 }
 
 /* contents */
@@ -18,7 +18,7 @@
 .toc-list { margin-top: 8px; }
 .toc a { display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 5px 8px 5px 0; font-size: 13.5px; line-height: 1.35; color: var(--fg-3); text-decoration: none; border-radius: 2px; transition: color 160ms ease, background-color 160ms ease; }
 .toc a span { font-family: var(--mono); font-size: 11px; padding-top: 2px; }
-.toc a:hover { color: var(--fg); }
+@media (hover: hover) { .toc a:hover { color: var(--fg); } }
 .toc a.is-on { color: var(--fg); }
 .toc a.is-on span { color: var(--sig-fg); }
 .toc-ch { margin-top: 10px; }
@@ -40,8 +40,11 @@
 
 .doc h2 { margin-top: 112px; padding-top: 28px; border-top: 1px solid var(--line-2); font-size: clamp(30px, 3.6vw, 46px); font-weight: 600; font-stretch: 114%; letter-spacing: -0.035em; line-height: 1.02; }
 .doc .front h2, .doc .back h2 { font-size: clamp(24px, 2.6vw, 32px); margin-top: 72px; }
+/* the title block's rule already closes it: the abstract starts without a second one */
+.doc .front > section:first-child > h2 { margin-top: 56px; padding-top: 0; border-top: 0; }
 .chap-num { display: block; margin-bottom: 14px; font-size: 12px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
 .chap-num::before { content: "Chapter "; }
+.doc h2, .doc h3 { text-wrap: balance; }
 .doc h3 { margin-top: 56px; font-size: 23px; font-weight: 600; font-stretch: 108%; letter-spacing: -0.02em; line-height: 1.2; }
 .doc h4 { margin-top: 36px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
 .doc h5 { margin-top: 28px; font-size: 16px; font-weight: 600; color: var(--fg); }
@@ -58,9 +61,8 @@
 .run-in { margin-right: 6px; }
 .doc a:not(.btn) { color: var(--fg); }
 .doc a.cite { color: var(--fg-2); text-decoration: none; font-variant-numeric: tabular-nums; }
-.doc a.cite:hover { color: var(--sig-fg); }
+@media (hover: hover) { .doc a.cite:hover { color: var(--sig-fg); } }
 .doc .keywords { font-size: 14.5px; color: var(--fg-3); }
-.doc :target { scroll-margin-top: calc(var(--bar-h) + 24px); }
 
 /* math: LaTeX-typeset SVG (tools/thesis_math.py), with the MathML kept visually hidden for screen readers */
 .mx-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -70,7 +72,7 @@
 .mx-d { font-size: 1.2em; }
 .mx-d .mx-g { display: block; }
 math { font-family: "Noto Sans Math", math; font-size: 1.04em; color: var(--fg); }
-.eq { display: flex; align-items: center; gap: 16px; margin: 22px 0; overflow-x: auto; scrollbar-width: thin; }
+.eq { position: relative; display: flex; align-items: center; gap: 16px; margin: 22px 0; overflow-x: auto; scrollbar-width: thin; }
 .eq > .mx-d, .eq > math { flex: 1 1 auto; display: flex; justify-content: center; }
 .eq-num { margin-left: auto; flex: none; font-family: var(--mono); font-size: 11.5px; color: var(--fg-3); }
 .eq-group { margin: 22px 0; }
@@ -89,12 +91,13 @@ math { font-family: "Noto Sans Math", math; font-size: 1.04em; color: var(--fg);
 .doc figure:target figcaption { color: var(--fg); }
 
 /* tables */
-.table-wrap { margin: 30px 0; overflow-x: auto; }
+.table-wrap { position: relative; margin: 30px 0; overflow-x: auto; }
 .doc table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
 .doc caption { caption-side: top; text-align: left; padding-bottom: 10px; font-size: 14px; color: var(--fg-3); }
 .doc th, .doc td { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--fg-2); }
 .doc th { color: var(--fg); font-weight: 600; border-bottom-color: var(--line-2); }
 .doc td.c, .doc th.c { text-align: center; }
+.doc th:first-child { text-align: left; }
 .doc tbody + tbody { border-top: 1px solid var(--line-2); }
 
 /* footnotes */
@@ -115,7 +118,9 @@ math { font-family: "Noto Sans Math", math; font-size: 1.04em; color: var(--fg);
 @media (max-width: 1000px) {
   .reader-grid { grid-template-columns: 1fr; gap: 24px; }
   .toc { position: static; max-height: none; overflow: visible; border: 1px solid var(--line); border-radius: 3px; padding: 14px 16px; }
-  .toc summary { border-bottom: 0; padding-bottom: 0; }
+  .toc summary { display: flex; justify-content: space-between; align-items: center; min-height: 32px; padding-bottom: 0; border-bottom: 0; }
+  .toc summary::after { content: ""; width: 7px; height: 7px; margin-right: 4px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 200ms var(--ease); }
+  .toc details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
   .toc details[open] summary { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
   .bar-doc { display: none; }
 }

@@ -243,7 +243,8 @@
     let sum = 0;
     for (const { q } of me.nb) sum += q;
     strength += (sum - strength) * (1 - Math.exp(-dt / 0.5));
-    const raw = !me.nb.length ? 0 : strength < LEVELS[0] ? 1 : strength < LEVELS[1] ? 2 : strength < LEVELS[2] ? 3 : 4;
+    if (!me.nb.length) { level = 0; pendingT = 0; return; }   // no radios in range: no bars, at once
+    const raw = strength < LEVELS[0] ? 1 : strength < LEVELS[1] ? 2 : strength < LEVELS[2] ? 3 : 4;
     if (raw === level) { pendingT = 0; return; }
     if (raw !== pending) { pending = raw; pendingT = 0; }
     pendingT += dt;

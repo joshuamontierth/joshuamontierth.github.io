@@ -4,11 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Research · Josh Montierth</title>
-<meta name="description" content="Josh Montierth's research in digital signal processing and wireless systems: Frequency Lock Encoding (his MS thesis) with over-the-air results at IEEE MILCOM 2026, UnderTone on everyday Wi-Fi chips at ACM MobiCom 2026, and SpectralSeal access-point authentication, plus underwater full-duplex acoustic links, Bluetooth localization in a neonatal ICU, and SARLINK, a satellite radar detector.">
+<meta name="description" content="Josh Montierth's research in digital signal processing and wireless systems: Frequency Lock Encoding (his MS thesis) with over-the-air results at IEEE MILCOM 2026, UnderTone on everyday Wi-Fi chips at ACM MobiCom 2026, and SpectralSeal access-point authentication, plus underwater full-duplex acoustic links, Bluetooth localization in a neonatal ICU, and SARLink, a satellite radar detector.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#06080c" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta property="og:title" content="Research · Josh Montierth">
+<meta property="og:description" content="Josh Montierth's research in digital signal processing and wireless systems: Frequency Lock Encoding (his MS thesis) with over-the-air results at IEEE MILCOM 2026, UnderTone on everyday Wi-Fi chips at ACM MobiCom 2026, and SpectralSeal access-point authentication, plus underwater full-duplex acoustic links, Bluetooth localization in a neonatal ICU, and SARLink, a satellite radar detector.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://joshuamontierth.github.io/research.html">
+<meta property="og:site_name" content="Josh Montierth">
+<meta property="og:image" content="https://joshuamontierth.github.io/assets/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Josh Montierth, wireless systems engineer, over a drawing of a mesh network.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem("theme")}catch(e){}if(t==="light"||t==="dark")r.setAttribute("data-theme",t);r.classList.add("js")})()</script>
 <link rel="stylesheet" href="css/site.css">
@@ -48,7 +60,7 @@
         <li><a href="#fle">Frequency Lock Encoding</a></li>
         <li><a href="#math">The math</a></li>
         <li><a href="#simulation">Simulation</a></li>
-        <li><a href="#ota">On real radios</a></li>
+        <li><a href="#ota">Over the Air</a></li>
         <li><a href="#undertone">UnderTone</a></li>
         <li><a href="#spectralseal">SpectralSeal</a></li>
       </ol>
@@ -56,7 +68,7 @@
       <ol>
         <li><a href="#underwater">Underwater full duplex</a></li>
         <li><a href="#nicu">NICU localization</a></li>
-        <li><a href="#sarlink">SARLINK</a></li>
+        <li><a href="#sarlink">SARLink</a></li>
       </ol>
     </nav>
 
@@ -64,33 +76,28 @@
 
       <!-- ================= FLE ================= -->
       <section class="chap" id="fle" aria-labelledby="fle-h">
-        <h2 id="fle-h">Frequency Lock Encoding (MS Thesis)</h2>
+        <h2 id="fle-h">Frequency Lock Encoding (MS&nbsp;Thesis)</h2>
         <p class="lede">A second stream of data carried in intentional frequency impairments of a wireless signal.</p>
         <div class="prose">
           <p>Every wireless receiver estimates and corrects the carrier-frequency offset between itself and the transmitter, caused by oscillator drift, temperature, and Doppler. Losing frequency lock is catastrophic, so protocols provision their synchronization for the worst case. Under ordinary conditions a link uses only a small part of that correction range, and the rest sits unused.</p>
         </div>
         <div class="figs figs--1">
-          <figure class="plate plate--fig is-natural">
-            <img class="tw-d" src="assets/img/fle/pullin_range-dark.svg" alt="Diagram of carrier frequency offset: a wide synchronizer pull-in range with no-lock regions at both ends, a narrow bump of typical offsets in the middle, and the typically unused margin on either side." width="805" height="205" loading="lazy">
-            <img class="tw-l" src="assets/img/fle/pullin_range-light.svg" alt="Diagram of carrier frequency offset: a wide synchronizer pull-in range with no-lock regions at both ends, a narrow bump of typical offsets in the middle, and the typically unused margin on either side." width="805" height="205" loading="lazy">
+          <figure class="plate plate--fig is-natural fig-mid">
+            <img class="tw-d" src="assets/img/fle/pullin_range-dark.svg" alt="Diagram of carrier frequency offset: a wide synchronizer pull-in range with no-lock regions at both ends, a narrow bump of typical offsets in the middle, and the typically unused margin on either side." width="691" height="172" loading="eager" fetchpriority="high">
+            <img class="tw-l" src="assets/img/fle/pullin_range-light.svg" alt="Diagram of carrier frequency offset: a wide synchronizer pull-in range with no-lock regions at both ends, a narrow bump of typical offsets in the middle, and the typically unused margin on either side." width="691" height="172" loading="eager" fetchpriority="high">
             <figcaption>A receiver can pull in large frequency offsets, but typical offsets use only the middle of that range.</figcaption>
           </figure>
         </div>
         <div class="prose">
           <p>Frequency Lock Encoding (FLE) is a physical-layer subprotocol that converts that unused range into a functional signaling layer. The transmitter adds small, controlled offsets to its carrier frequency, a frequency-shift-keyed stream on top of the primary waveform. A standard receiver corrects them like ordinary drift and decodes its own data as usual. An FLE-aware receiver reads the frequency estimates it already computes and recovers a second, parallel stream, with no extra spectrum, no hardware modifications, and no change to the protocol standard.</p>
         </div>
-        <div class="figs">
-          <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/fle/fle_spectrum-dark.svg" alt="Spectrum of a signal with arrows showing it shifted slightly lower in frequency to send a 0 and slightly higher to send a 1." width="387" height="190" loading="lazy">
-            <img class="tw-l" src="assets/img/fle/fle_spectrum-light.svg" alt="Spectrum of a signal with arrows showing it shifted slightly lower in frequency to send a 0 and slightly higher to send a 1." width="387" height="190" loading="lazy">
-            <figcaption>Shifting the carrier slightly lower or higher sends a 0 or a 1.</figcaption>
-          </figure>
-          <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/fle/secondary_data-dark.svg" alt="A transmitter sends primary data to a receiver while dashed secondary data branches to a secondary receiver; below, a spectrogram of the primary signal shifts slightly up and down in frequency to spell the bits 1 0 1 1 0 1 0." width="625" height="466" loading="lazy">
-            <img class="tw-l" src="assets/img/fle/secondary_data-light.svg" alt="A transmitter sends primary data to a receiver while dashed secondary data branches to a secondary receiver; below, a spectrogram of the primary signal shifts slightly up and down in frequency to spell the bits 1 0 1 1 0 1 0." width="625" height="466" loading="lazy">
-            <figcaption>The main receiver keeps decoding its data while a second receiver reads the shifts.</figcaption>
-          </figure>
-        </div>
+        <figure class="inst">
+          <canvas class="inst-cv" data-inst="waterfall" aria-hidden="true"></canvas>
+          <figcaption>
+            <span class="inst-h">Live: one transmission, two receivers</span>
+            Shifting the carrier slightly lower or higher sends a 0 or a 1. The main receiver keeps decoding its data while a second receiver reads the shifts. Simulated.
+          </figcaption>
+        </figure>
         <dl class="props">
           <div><dt>Protocol-agnostic</dt><dd>Every receiver must estimate carrier frequency to demodulate anything, so FLE works on PLL-tracked single-carrier links, pilot-tracked OFDM, and burst-estimated packets.</dd></div>
           <div><dt>Backward-compatible</dt><dd>A receiver that has never heard of FLE sees only drift it already corrects. The primary link keeps working, unmodified.</dd></div>
@@ -110,9 +117,9 @@
         <p class="lede">How far the secondary stream can push the carrier before the main receiver notices.</p>
         <div class="figs figs--1">
           <figure class="plate plate--fig is-natural fig-mid">
-            <img class="tw-d" src="assets/img/fle/single_carrier_system-dark.svg" alt="Block diagrams. (a) Transmitter: primary symbols are pulse shaped into s(t) and multiplied by e to the j phi of t, where phi comes from FM modulating the subprotocol pulse train with deviation f d; the channel adds a phase rotation and noise. (b) Receiver: a matched filter and sampler feed a phase-locked loop with a phase error detector, loop filter F of z, and DDS; the loop's frequency estimate feeds a second matched filter, sampler, and decision block that recover the subprotocol symbols." width="672" height="454" loading="lazy">
-            <img class="tw-l" src="assets/img/fle/single_carrier_system-light.svg" alt="Block diagrams. (a) Transmitter: primary symbols are pulse shaped into s(t) and multiplied by e to the j phi of t, where phi comes from FM modulating the subprotocol pulse train with deviation f d; the channel adds a phase rotation and noise. (b) Receiver: a matched filter and sampler feed a phase-locked loop with a phase error detector, loop filter F of z, and DDS; the loop's frequency estimate feeds a second matched filter, sampler, and decision block that recover the subprotocol symbols." width="672" height="454" loading="lazy">
-            <figcaption>The system model. The transmitter adds the FLE phase φ(t) to the primary signal; the receiver's phase-locked loop tracks it, and the FLE decoder reads the loop's frequency estimate.</figcaption>
+            <img class="tw-d" src="assets/img/fle/single_carrier_system-dark.svg" alt="Block diagrams. (a) Transmitter: primary symbols are pulse shaped into s(t) and multiplied by e to the j phi of t, where phi comes from FM modulating the subprotocol pulse train with deviation f d; the channel adds a phase rotation and noise. (b) Receiver: a matched filter and sampler feed a phase-locked loop with a phase error detector, loop filter F of z, and DDS; the loop's frequency estimate feeds a second matched filter, sampler, and decision block that recover the subprotocol symbols." width="690" height="465" loading="lazy">
+            <img class="tw-l" src="assets/img/fle/single_carrier_system-light.svg" alt="Block diagrams. (a) Transmitter: primary symbols are pulse shaped into s(t) and multiplied by e to the j phi of t, where phi comes from FM modulating the subprotocol pulse train with deviation f d; the channel adds a phase rotation and noise. (b) Receiver: a matched filter and sampler feed a phase-locked loop with a phase error detector, loop filter F of z, and DDS; the loop's frequency estimate feeds a second matched filter, sampler, and decision block that recover the subprotocol symbols." width="690" height="465" loading="lazy">
+            <figcaption>The system model. The transmitter adds the FLE phase φ(t) to the primary signal; the receiver’s phase-locked loop tracks it, and the FLE decoder reads the loop’s frequency estimate.</figcaption>
           </figure>
         </div>
         <div class="eqs">
@@ -218,7 +225,7 @@
 <use x='92.866' y='0' xlink:href='#fle_phase-g0-117'/>
 </g>
 </svg></span></div>
-            <p><strong>The secondary stream is FSK on the carrier.</strong> The phase is the integral of the subprotocol's own pulse train, scaled by the deviation <i>f<sub>d</sub></i>.</p>
+            <p><strong>The secondary stream is FSK on the carrier.</strong> The phase is the integral of the subprotocol’s own pulse train, scaled by the deviation <i>f<sub>d</sub></i>.</p>
           </div>
           <div class="eqrow">
             <div class="eqbox"><span class="eqm" data-eq="fle_jitter" role="img" aria-label="sigma squared of nu 3 = 2 B_n T_s divided by E_avg over N_0"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6.6872em" height="2.4386em" viewBox="-0.121 -14.044 66.622 24.295" fill="currentColor">
@@ -262,7 +269,7 @@
 <use x='61.531' y='8.328' xlink:href='#fle_jitter-g3-48'/>
 </g>
 </svg></span></div>
-            <p><strong>What the main receiver pays.</strong> The loop's phase jitter is set by its bandwidth and the link SNR. FLE only has to keep its offsets inside what this loop already tracks.</p>
+            <p><strong>What the main receiver pays.</strong> The loop’s phase jitter is set by its bandwidth and the link SNR. FLE only has to keep its offsets inside what this loop already tracks.</p>
           </div>
           <div class="eqrow">
             <div class="eqbox"><span class="eqm" data-eq="fle_snr" role="img" aria-label="E-tilde_avg over sigma squared of nu-tilde 2 = (2 pi f_d A-tilde) squared over I_2, times E_avg over N_0"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10.2432em" height="2.7699em" viewBox="0.696 -16.413 102.049 27.596" fill="currentColor">
@@ -323,7 +330,7 @@
 <use x='93.739' y='8.328' xlink:href='#fle_snr-g3-48'/>
 </g>
 </svg></span></div>
-            <p><strong>The secondary stream borrows the link's SNR.</strong> Its SNR scales with the primary's <i>E<sub>avg</sub></i>/<i>N</i><sub>0</sub>, so the two error rates track each other as the link budget changes.</p>
+            <p><strong>The secondary stream borrows the link’s SNR.</strong> Its SNR scales with the primary’s <i>E<sub>avg</sub></i>/<i>N</i><sub>0</sub>, so the two error rates track each other as the link budget changes.</p>
           </div>
           <div class="eqrow">
             <div class="eqbox"><span class="eqm" data-eq="fle_lock" role="img" aria-label="f_d A-tilde T_s rho is less than 2 root 3 over (pi squared gamma (1 + beta) (zeta + 1 over 4 zeta) squared), times (B_n T_s) squared N"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18.7815em" height="3.5370em" viewBox="0.028 -15.88 187.113 35.238" fill="currentColor">
@@ -403,8 +410,8 @@
         </div>
         <div class="figs figs--1">
           <figure class="plate plate--fig is-natural fig-mid">
-            <img class="tw-d" src="assets/img/dark/math_vs_simulation.svg" alt="Plot of normalized deviation against symbol rate ratio, showing regions where neither, the sinusoidal, or both analytical lock limits are satisfied, and the stable region measured in simulation." width="539" height="392" loading="lazy">
-            <img class="tw-l" src="thesis/fig/math_vs_simulation.svg" alt="Plot of normalized deviation against symbol rate ratio, showing regions where neither, the sinusoidal, or both analytical lock limits are satisfied, and the stable region measured in simulation." width="539" height="392" loading="lazy">
+            <img class="tw-d" src="assets/img/fle/math_vs_simulation-dark.svg" alt="Plot of normalized deviation against symbol rate ratio, showing regions where neither, the sinusoidal, or both analytical lock limits are satisfied, and the stable region measured in simulation." width="720" height="524" loading="lazy">
+            <img class="tw-l" src="assets/img/fle/math_vs_simulation-light.svg" alt="Plot of normalized deviation against symbol rate ratio, showing regions where neither, the sinusoidal, or both analytical lock limits are satisfied, and the stable region measured in simulation." width="720" height="524" loading="lazy">
             <figcaption>The analytical lock limits against the stable region measured in simulation.</figcaption>
           </figure>
         </div>
@@ -416,44 +423,44 @@
         <h2 id="sim-h">Simulation</h2>
         <p class="lede">Testing whether the main link can tell the secondary stream is there.</p>
         <div class="prose">
-          <p>I built the full system in GNU Radio and ran tens-of-thousands of simulations, sweeping deviation, symbol-rate ratio, and SNR across additive-noise and multipath fading channels, for both a single-carrier link and 802.11 OFDM. The main link can't tell the difference: the channel was the only significant factor in its performance, and FLE's presence was not.</p>
+          <p>I built the full system in GNU Radio and ran tens-of-thousands of simulations, sweeping deviation, symbol-rate ratio, and SNR across additive-noise and multipath fading channels, for both a single-carrier link and 802.11 OFDM. The main link can’t tell the difference: the channel was the only significant factor in its performance, and FLE’s presence was not.</p>
           <p>The panel below runs the same mechanism in your browser: a 16-QAM link through a carrier offset that FLE keys between two values, tracked by a decision-directed phase-locked loop.</p>
         </div>
         <figure class="inst">
           <canvas class="inst-cv" data-inst="fle" aria-hidden="true"></canvas>
           <figcaption>
             <span class="inst-h">Live: a 16-QAM link with FLE riding on it</span>
-            Left, the main receiver's constellation stays locked with no symbol errors. Right, its loop's frequency estimate steps between two values: those steps are the secondary bits, decoded below. Simulated, with the offsets exaggerated for visibility.
+            The constellation stays locked with no symbol errors while the loop’s frequency estimate steps out the secondary bits. Simulated.
           </figcaption>
         </figure>
         <div class="figs">
           <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/dark/sweep_heatmap_combined_limits.svg" alt="Heat map of combined primary and subprotocol bit error rate over deviation against symbol rate ratio, green where both links are error-free, with the stable region dotted." width="481" height="384" loading="lazy">
-            <img class="tw-l" src="thesis/fig/sweep_heatmap_combined_limits.svg" alt="Heat map of combined primary and subprotocol bit error rate over deviation against symbol rate ratio, green where both links are error-free, with the stable region dotted." width="481" height="384" loading="lazy">
+            <img class="tw-d" src="assets/img/fle/sweep_heatmap_combined_limits-dark.svg" alt="Heat map of combined primary and subprotocol bit error rate over deviation against symbol rate ratio, with error-free cells in solid blue, fading to the background as errors rise, and the stable operating envelope outlined by a dotted line." width="490" height="391" loading="lazy">
+            <img class="tw-l" src="assets/img/fle/sweep_heatmap_combined_limits-light.svg" alt="Heat map of combined primary and subprotocol bit error rate over deviation against symbol rate ratio, with error-free cells in solid blue, fading to the background as errors rise, and the stable operating envelope outlined by a dotted line." width="490" height="391" loading="lazy">
             <figcaption>Combined error rate across the design space. The dotted line marks where both links stay stable.</figcaption>
           </figure>
           <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/dark/ber_qpsk-new.svg" alt="Primary QPSK bit error rate against Eb/N0 for several FLE settings, overlapping the baseline without FLE." width="765" height="613" loading="lazy">
-            <img class="tw-l" src="thesis/fig/ber_qpsk-new.svg" alt="Primary QPSK bit error rate against Eb/N0 for several FLE settings, overlapping the baseline without FLE." width="765" height="613" loading="lazy">
-            <figcaption>The main link's bit error rate with FLE running, against the same link without it.</figcaption>
+            <img class="tw-d" src="assets/img/fle/ber_qpsk-new-dark.svg" alt="Primary QPSK bit error rate against Eb/N0 for several FLE settings, overlapping the baseline without FLE." width="490" height="393" loading="lazy">
+            <img class="tw-l" src="assets/img/fle/ber_qpsk-new-light.svg" alt="Primary QPSK bit error rate against Eb/N0 for several FLE settings, overlapping the baseline without FLE." width="490" height="393" loading="lazy">
+            <figcaption>The main link’s bit error rate with FLE running, against the same link without it.</figcaption>
           </figure>
         </div>
       </section>
 
-      <!-- ================= ON REAL RADIOS ================= -->
+      <!-- ================= Over the Air ================= -->
       <section class="chap" id="ota" aria-labelledby="ota-h">
-        <h2 id="ota-h">On real radios</h2>
-        <p class="lede">Over the air on software-defined radios, presented at MILCOM '26.</p>
+        <h2 id="ota-h">Over the Air</h2>
+        <p class="lede">Implementation on software-defined radios, presented at MILCOM ’26.</p>
         <div class="prose">
           <p>On the bench, I built the system on an SDR platform and delivered the subprotocol stream at 915&nbsp;MHz. I presented this analysis, simulation, and initial results at IEEE MILCOM on October 14, 2026.</p>
         </div>
         <div class="figs">
           <figure class="plate">
-            <img src="assets/img/fle-ota-setup.jpg" alt="Lab bench with laptops and software-defined radios labeled Primary TX, Primary RX, and Secondary RX." width="1304" height="724" loading="lazy">
+            <img src="assets/img/fle-ota-setup.jpg" srcset="assets/img/fle-ota-setup-320.webp 320w, assets/img/fle-ota-setup-480.webp 480w, assets/img/fle-ota-setup-640.webp 640w, assets/img/fle-ota-setup-960.webp 960w, assets/img/fle-ota-setup.jpg 1304w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 45vw, 517px" alt="Lab bench with laptops and software-defined radios labeled Primary TX, Primary RX, and Secondary RX." width="1304" height="724" loading="lazy">
             <figcaption>The bench: a USRP B210 link, with an ADALM-Pluto receiving the secondary stream.</figcaption>
           </figure>
           <figure class="plate">
-            <img src="assets/img/milcom-2026-receiver.jpg" alt="Josh presenting at IEEE MILCOM 2026 beside a slide titled Subprotocol Receiver showing a block diagram." width="900" height="600" loading="lazy">
+            <img src="assets/img/milcom-2026-receiver.jpg" srcset="assets/img/milcom-2026-receiver-320.webp 320w, assets/img/milcom-2026-receiver-480.webp 480w, assets/img/milcom-2026-receiver-640.webp 640w, assets/img/milcom-2026-receiver.jpg 900w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 45vw, 517px" alt="Josh presenting at IEEE MILCOM 2026 beside a slide titled Subprotocol Receiver showing a block diagram." width="900" height="600" loading="lazy">
             <figcaption>Presenting the FLE foundational paper at IEEE MILCOM 2026.</figcaption>
           </figure>
         </div>
@@ -461,7 +468,7 @@
           <div>
             <h3>Frequency Lock Encoding</h3>
             <p class="paper-auth"><b>J. Montierth</b>, M. Rice, P. Lundrigan</p>
-            <p class="paper-venue">IEEE MILCOM '26</p>
+            <p class="paper-venue">IEEE MILCOM ’26</p>
           </div>
           <div class="paper-act">
             <a class="btn btn-solid" href="assets/docs/Montierth-MILCOM-2026-Frequency-Lock-Encoding.pdf">PDF</a>
@@ -469,7 +476,7 @@
           </div>
         </div>
         <div class="talk" id="talk" hidden>
-          <p class="talk-h">From my MILCOM '26 talk</p>
+          <p class="talk-h">From my MILCOM ’26 talk</p>
           <ol class="clips clips--one" id="clips"></ol>
         </div>
       </section>
@@ -477,11 +484,18 @@
       <!-- ================= UNDERTONE ================= -->
       <section class="chap" id="undertone" aria-labelledby="ut-h">
         <h2 id="ut-h">UnderTone</h2>
-        <p class="lede">Frequency Lock Encoding on everyday Wi-Fi chips, at MobiCom '26.</p>
+        <p class="lede">Frequency Lock Encoding on everyday Wi-Fi chips, at MobiCom ’26.</p>
+        <figure class="inst">
+          <canvas class="inst-cv" data-inst="nets" aria-hidden="true"></canvas>
+          <figcaption>
+            <span class="inst-h">Live: two networks, one UnderTone channel</span>
+            Devices on different networks can exchange data over FLE, carried on traffic they already send to their own access points. We explore this idea in current and future work in the context of spectrum coordination. Simulated.
+          </figcaption>
+        </figure>
         <div class="prose">
-          <p>Software-defined radios make FLE easy; ordinary Wi-Fi chips do not. The ESP32-C5 gives software no access to raw samples or MAC timing, so I mapped two undocumented registers: the frequency synthesizer that tunes its 2.4 and 5&nbsp;GHz oscillators, used to shift the carrier, and the receiver's own frequency-offset estimate, used to read it. UnderTone rides on traffic the device was already sending and adds no frames to the air.</p>
-          <p>The channel this creates is unusual. A frequency reading exists only when the device happens to send a frame, and Wi-Fi traffic is bursty, so errors come from noise in the readings but far more often from erasures: stretches with no traffic and nothing to read. UnderTone is built around that. Each packet opens with a slow, robust binary header that tells the receiver how the rest is sent, and the payload follows at 2, 4, 8, or 16 tones. Symbols with no readings are flagged as erasures rather than guessed, and Reed–Solomon parity fills them in. A rate selector measures the traffic a device is already generating and picks the symbol time and coding that deliver the most data, or holds off when the carrier can't support it.</p>
-          <p>Demodulating it took new synchronization, because the readings arrive at irregular times the receiver can't choose. A conventional timing loop moves the sampling instant, and here there is nothing to move. So I developed timing recovery that slides a candidate symbol grid across the known sync word and keeps the alignment that agrees best, then refines it over the whole buffered packet. For the carrier, a two-sided, decision-directed tracker runs forward and backward over the packet, seeded from the header, and it outperformed one-sided averaging and both first- and second-order PLLs. Each symbol is then decided by majority vote over the readings in its window.</p>
+          <p>Software-defined radios make FLE easy; ordinary Wi-Fi chips do not. The ESP32-C5 gives software no access to raw samples or MAC timing, so I mapped two undocumented registers: the frequency synthesizer that tunes its 2.4 and 5&nbsp;GHz oscillators, used to shift the carrier, and the receiver’s own frequency-offset estimate, used to read it. UnderTone rides on traffic the device was already sending and adds no frames to the air.</p>
+          <p>The channel this creates is unusual. A frequency reading exists only when the device happens to send a frame, and Wi-Fi traffic is bursty, so errors come from noise in the readings but far more often from erasures: stretches with no traffic and nothing to read. UnderTone is built around that. Each packet opens with a slow, robust binary header that tells the receiver how the rest is sent, and the payload follows at 2, 4, 8, or 16 tones. Symbols with no readings are flagged as erasures rather than guessed, and Reed–Solomon parity fills them in. A rate selector measures the traffic a device is already generating and picks the symbol time and coding that deliver the most data, or holds off when the carrier can’t support it.</p>
+          <p>Demodulating it took new synchronization, because the readings arrive at irregular times the receiver can’t choose. A conventional timing loop moves the sampling instant, and here there is nothing to move. So I developed timing recovery that slides a candidate symbol grid across the known sync word and keeps the alignment that agrees best, then refines it over the whole buffered packet. For the carrier, a two-sided, decision-directed tracker runs forward and backward over the packet, seeded from the header, and it outperformed one-sided averaging and both first- and second-order PLLs. Each symbol is then decided by majority vote over the readings in its window.</p>
         </div>
         <figure class="plate diagram fig-gap">
           <div class="diagram-scroll"><svg viewBox="0 0 1000 158" role="img" aria-labelledby="ut-diag-t">
@@ -510,17 +524,12 @@
           <canvas class="inst-cv" data-inst="undertone" aria-hidden="true"></canvas>
           <figcaption>
             <span class="inst-h">Live: 16-tone UnderTone on bursty Wi-Fi traffic</span>
-            Each mark is a frame the device was sending anyway. Its frequency offset lands on one of 16 tones, and the receiver decides each window by majority vote, four bits at a time. Windows with no traffic are erasures, which the Reed–Solomon parity fills in (dashed). Simulated.
+            Each mark is a frame the device was already sending, its offset on one of 16 tones. Reed–Solomon parity fills in the empty windows (dashed). Simulated.
           </figcaption>
         </figure>
-        <div class="figs">
-          <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/fle/fle_topology-dark.svg" alt="Two networks, each with a gateway and a node on its own primary link; a dashed FLE channel connects node A and node B across the networks, and an inset plots the carrier frequency offset stepping over time." width="816" height="264" loading="lazy">
-            <img class="tw-l" src="assets/img/fle/fle_topology-light.svg" alt="Two networks, each with a gateway and a node on its own primary link; a dashed FLE channel connects node A and node B across the networks, and an inset plots the carrier frequency offset stepping over time." width="816" height="264" loading="lazy">
-            <figcaption>Devices on different networks can exchange data over FLE, carried on traffic they already send to their own access points. We explore this idea in current and future work in the context of spectrum coordination</figcaption>
-          </figure>
-          <figure class="plate plate--fig">
-            <img class="tw-d" src="assets/img/dark/undertone-plane.png" alt="Heat map of packet rate against traffic burstiness, colored by the best symbol time and coding, with points marking YouTube streaming, web surfing, a Zoom call, a large file transfer, and others." width="1350" height="990" loading="lazy">
+        <div class="figs figs--1">
+          <figure class="plate plate--fig fig-mid">
+            <img class="tw-d" src="assets/img/dark/undertone-plane.png" srcset="assets/img/dark/undertone-plane-320.webp 320w, assets/img/dark/undertone-plane-480.webp 480w, assets/img/dark/undertone-plane-640.webp 640w, assets/img/dark/undertone-plane-960.webp 960w, assets/img/dark/undertone-plane.png 1352w" sizes="(max-width: 860px) 92vw, 720px" alt="Heat map of packet rate against traffic burstiness, colored by the best symbol time and coding, with points marking YouTube streaming, web surfing, a Zoom call, a large file transfer, and others." width="1350" height="990" loading="lazy">
             <img class="tw-l" src="thesis/fig/plane_joint.svg" alt="Heat map of packet rate against traffic burstiness, colored by the best symbol time and coding, with points marking YouTube streaming, web surfing, a Zoom call, a large file transfer, and others." width="854" height="619" loading="lazy">
             <figcaption>Our method of classifying traffic patterns and selecting the optimal FLE configuration.</figcaption>
           </figure>
@@ -529,7 +538,7 @@
           <div>
             <h3>UnderTone: Frequency Lock Encoding on COTS Wi-Fi Hardware</h3>
             <p class="paper-auth"><b>J. Montierth</b>, P. Lundrigan</p>
-            <p class="paper-venue">ACM MobiCom '26, work in progress</p>
+            <p class="paper-venue">ACM MobiCom ’26, work in progress</p>
           </div>
           <div class="paper-act">
             <a class="btn btn-solid" href="assets/docs/Montierth-MobiCom-2026-UnderTone-WiP.pdf">PDF</a>
@@ -543,8 +552,8 @@
         <h2 id="ss-h">SpectralSeal</h2>
         <p class="lede">Telling a real Wi-Fi access point from an impostor.</p>
         <div class="prose">
-          <p>A rogue access point is a fake Wi-Fi network that copies a real one's name and password. Phones and laptops join it automatically, and once you're connected, the attacker sits in the middle of your traffic: it can watch what you do, push fake sign-in pages, and redirect you to look-alike sites. Most consumer Wi-Fi security today can't tell the two networks apart and proposed and implemented solutions require protocol overhauls, which are difficult to deploy at scale and do not protect legacy devices.</p>
-          <p>SpectralSeal gives the real access point a signature that can't be copied, carried in the tiny frequency offsets of the frames it already sends. A phone checks that signature before it joins, so the real network shows up as verified and a copy never does. It can do all this with only software and firmware changes, as CFO tuning and estimation are inherent to the Wi-Fi protocol.</p>
+          <p>A rogue access point is a fake Wi-Fi network that copies a real one’s name and password. Phones and laptops join it automatically, and once you’re connected, the attacker sits in the middle of your traffic: it can watch what you do, push fake sign-in pages, and redirect you to look-alike sites. Most consumer Wi-Fi security today can’t tell the two networks apart and proposed and implemented solutions require protocol overhauls, which are difficult to deploy at scale and do not protect legacy devices.</p>
+          <p>SpectralSeal gives the real access point a signature that can’t be copied, carried in the tiny frequency offsets of the frames it already sends. A phone checks that signature before it joins, so the real network shows up as verified and a copy never does. It can do all this with only software and firmware changes, as CFO tuning and estimation are inherent to the Wi-Fi protocol.</p>
         </div>
         <div class="seal-demo">
           <figure class="wifi-phone" id="wifi-phone" aria-label="A phone's Wi-Fi list showing two networks named Campus Wi-Fi: one marked Verified with a green check, and an impostor marked Not verified, above other networks without SpectralSeal.">
@@ -565,17 +574,17 @@
             </div></div>
           </figure>
           <dl class="seal-legend">
-            <div><dt><span class="sl-ok"><svg class="wp-badge-ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8"/><path d="m4.6 8.2 2.2 2.2 4.6-4.8" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Verified</dt><dd>The access point's beacons hash onto today's published anchor, so this is the real Campus Wi-Fi.</dd></div>
+            <div><dt><span class="sl-ok"><svg class="wp-badge-ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8"/><path d="m4.6 8.2 2.2 2.2 4.6-4.8" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Verified</dt><dd>The access point’s beacons hash onto today’s published anchor, so this is the real Campus Wi-Fi.</dd></div>
             <div><dt><span class="sl-bad"><svg class="wp-badge-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.2 15.2 14H.8z"/><path d="M8 6v3.6M8 11.6v.2" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg></span>Not verified</dt><dd>Same name and same password, but its beacons never add up. The phone can warn you before it ever connects.</dd></div>
             <div><dt><span class="sl-none"></span>No badge</dt><dd>Networks without SpectralSeal look exactly as they do today.</dd></div>
           </dl>
         </div>
         <div class="prose">
-          <p>Under the hood, SpectralSeal borrows the commitment-then-reveal idea of the TESLA broadcast authentication protocol. Each day the access point picks a random secret, hashes it forward thousands of times into a one-way chain, and publishes only the last value, the anchor. It then reveals the chain backward, one value per 2.5-second beacon, carried with FLE. A phone never knows the next value in advance. Instead, it hashes whatever arrives and checks that the result adds up to the last value it verified, and ultimately to the published anchor. An impostor can't compute an earlier chain value without inverting SHA-256, and a beacon replayed in a different time slot takes the wrong number of hashes to reach the anchor. Ordinary receivers never see the beacons, the Wi-Fi standard is untouched, and only the access point has to transmit FLE.</p>
+          <p>Under the hood, SpectralSeal borrows the commitment-then-reveal idea of the TESLA broadcast authentication protocol. Each day the access point picks a random secret, hashes it forward thousands of times into a one-way chain, and publishes only the last value, the anchor. It then reveals the chain backward, one value per 2.5-second beacon, carried with FLE. A phone never knows the next value in advance. Instead, it hashes whatever arrives and checks that the result adds up to the last value it verified, and ultimately to the published anchor. An impostor can’t compute an earlier chain value without inverting SHA-256, and a beacon replayed in a different time slot takes the wrong number of hashes to reach the anchor. Ordinary receivers never see the beacons, the Wi-Fi standard is untouched, and only the access point has to transmit FLE.</p>
         </div>
         <figure class="plate diagram fig-gap">
           <div class="diagram-scroll"><svg viewBox="0 0 1000 300" role="img" aria-labelledby="ss-diag-t">
-            <title id="ss-diag-t">SpectralSeal's one-way hash chain. A random secret c zero is hashed forward to c one, c two, and so on up to c K, the anchor, which is published. Beacons then reveal the chain backward: slot 0 reveals c K minus 1, slot 1 reveals c K minus 2, and so on. A phone verifies each revealed value by hashing it once and comparing it with the last value it verified.</title>
+            <title id="ss-diag-t">SpectralSeal’s one-way hash chain. A random secret c zero is hashed forward to c one, c two, and so on up to c K, the anchor, which is published. Beacons then reveal the chain backward: slot 0 reveals c K minus 1, slot 1 reveals c K minus 2, and so on. A phone verifies each revealed value by hashing it once and comparing it with the last value it verified.</title>
             <defs><marker id="ss-arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head"/></marker>
               <marker id="ss-arw-s" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head-sig"/></marker></defs>
             <text class="d-host-t" x="20" y="22">BUILT FORWARD, ONCE A DAY</text>
@@ -607,7 +616,7 @@
             <text class="d-t" x="520" y="250" text-anchor="middle">=</text><text class="d-sub" x="520" y="230" text-anchor="middle">?</text>
             <g class="d-blk"><rect x="550" y="216" width="200" height="56" rx="2"/><text class="d-t" x="650" y="242" text-anchor="middle">last verified value</text><text class="d-sub" x="650" y="260" text-anchor="middle">the anchor, at first</text></g>
             <text class="d-t d-small" x="780" y="238">Adds up: authentic.</text>
-            <text class="d-sub" x="780" y="258">Doesn't: rejected.</text>
+            <text class="d-sub" x="780" y="258">Doesn’t: rejected.</text>
           </svg></div>
           <figcaption>The access point builds the chain forward from its secret and reveals it backward. Each revealed value hashes onto the one revealed before it, all the way to the published anchor.</figcaption>
         </figure>
@@ -695,13 +704,13 @@
           <canvas class="inst-cv" data-inst="seal" aria-hidden="true"></canvas>
           <figcaption>
             <span class="inst-h">Live: a phone checking two networks with the same name</span>
-            Each beacon arrives as a sync word, then 40 tones that carry a 64-bit value with its CRC and Reed–Solomon parity. The phone decodes the value and hashes it once: the real access point's value adds up to the last one the phone verified, and the impostor's never does. Shown slower than real time.
+            The phone hashes each beacon’s value once. The real access point’s adds up to the last value it verified; the impostor’s never does. Slowed down.
           </figcaption>
         </figure>
         <div class="figs figs--1">
           <figure class="plate plate--fig is-natural fig-mid">
-            <img class="tw-d" src="assets/img/dark/spectralseal_verification.svg" alt="Line chart of the percentage of SpectralSeal beacons verified over 18 hours, staying between about 99.1 and 100 percent." width="802" height="335" loading="lazy">
-            <img class="tw-l" src="thesis/fig/spectralseal_verification.svg" alt="Line chart of the percentage of SpectralSeal beacons verified over 18 hours, staying between about 99.1 and 100 percent." width="802" height="335" loading="lazy">
+            <img class="tw-d" src="assets/img/fle/spectralseal_verification-dark.svg" alt="Line chart of the percentage of SpectralSeal beacons verified over 18 hours, staying between about 99.1 and 100 percent." width="720" height="301" loading="lazy">
+            <img class="tw-l" src="assets/img/fle/spectralseal_verification-light.svg" alt="Line chart of the percentage of SpectralSeal beacons verified over 18 hours, staying between about 99.1 and 100 percent." width="720" height="301" loading="lazy">
             <figcaption>Over 18 hours on a congested 5&nbsp;GHz channel shared with 32 other networks, the phone verified 99.6% of 25,921 beacons and never missed two in a row. Every impersonation and replay attempt was rejected.</figcaption>
           </figure>
         </div>
@@ -714,7 +723,7 @@
         <p class="lede">Simultaneous communication in an underwater network.</p>
         <div class="prose">
           <p>Autonomous underwater vehicles talk over slow, narrow acoustic links. Because spectrum is scarce, constructing a mesh of underwater nodes remains an open problem in the literature. Instead, we allow two devices to use the same spectrum allocation, by giving each direction its own chirp slope.</p>
-          <p>Both nodes use LoRa-style chirp spread spectrum in the same 20–30&nbsp;kHz band: 512 cyclically shifted chirps (spreading factor 9), sampled at 150&nbsp;kHz, with differential encoding. One node sends up-chirps, and the other sends down-chirps. Dechirping with the matching slope collapses the wanted signal into a single FFT bin, while the opposite-slope signal, including the node's own transmission, stays spread across the band. The remaining cancellation is minimal: subtract the correlation of the node's own known preamble, and band-pass filter.</p>
+          <p>Both nodes use LoRa-style chirp spread spectrum in the same 20–30&nbsp;kHz band: 512 cyclically shifted chirps (spreading factor 9), sampled at 150&nbsp;kHz, with differential encoding. One node sends up-chirps, and the other sends down-chirps. Dechirping with the matching slope collapses the wanted signal into a single FFT bin, while the opposite-slope signal, including the node’s own transmission, stays spread across the band. The remaining cancellation is minimal: subtract the correlation of the node’s own known preamble, and band-pass filter.</p>
         </div>
         <div class="eqs eqs--one">
           <div class="eqrow">
@@ -765,31 +774,32 @@
 <use x='146.289' y='-7.12' xlink:href='#uw_chirps-g4-50'/>
 </g>
 </svg></span></div>
-            <p><strong>Opposite slopes.</strong> Multiplying by the conjugate of one slope turns its chirps into a pure tone and leaves the other slope's chirps spread across every bin.</p>
+            <p><strong>Opposite slopes.</strong> Multiplying by the conjugate of one slope turns its chirps into a pure tone and leaves the other slope’s chirps spread across every bin.</p>
           </div>
         </div>
         <div class="prose">
           <p>I wrote the orthogonal-chirp modem (cyclic chirps, synchronization, and differential encoding) to implement our mesh protocol. The tests ran in an anechoic-lined tank with robotic positioners and calibrated transducers.</p>
         </div>
         <figure class="inst">
+          <canvas class="inst-cv" data-inst="uwnodes" aria-hidden="true"></canvas>
           <canvas class="inst-cv" data-inst="chirp" aria-hidden="true"></canvas>
           <figcaption>
-            <span class="inst-h">Live: up-chirps and down-chirps sharing one band</span>
-            Top, the node's own loud up-chirps and the distant node's quiet down-chirps overlap in time and frequency. Bottom, dechirping with the down-chirp reference collapses the distant node's symbol into one bin while the node's own signal smears across all of them. Simulated with 32 bins for legibility.
+            <span class="inst-h">Live: two nodes, one band</span>
+            Node A sends up-chirps while node B sends down-chirps. Dechirping at node A collapses node B’s symbol into one bin and spreads its own signal across all of them. Simulated and slowed.
           </figcaption>
         </figure>
         <div class="figs figs--1">
           <figure class="plate plate--fig is-natural">
-            <img class="tw-d" src="assets/img/research/underwater-tank-spectrogram-dark.jpg" alt="Measured spectrogram from 15 to 35 kHz over one second: a long falling preamble chirp and a long rising preamble chirp cross, followed by interleaved rising and falling payload chirps in the 20 to 30 kHz band." width="1920" height="736" loading="lazy">
-            <img class="tw-l" src="assets/img/research/underwater-tank-spectrogram-light.jpg" alt="Measured spectrogram from 15 to 35 kHz over one second: a long falling preamble chirp and a long rising preamble chirp cross, followed by interleaved rising and falling payload chirps in the 20 to 30 kHz band." width="1920" height="736" loading="lazy">
-            <figcaption>Measured in the tank: both nodes' preambles cross, then their up- and down-chirp payloads interleave in the same band.</figcaption>
+            <img class="tw-d" src="assets/img/research/underwater-tank-spectrogram-dark.jpg" srcset="assets/img/research/underwater-tank-spectrogram-dark-320.webp 320w, assets/img/research/underwater-tank-spectrogram-dark-480.webp 480w, assets/img/research/underwater-tank-spectrogram-dark-640.webp 640w, assets/img/research/underwater-tank-spectrogram-dark-960.webp 960w, assets/img/research/underwater-tank-spectrogram-dark-1280.webp 1280w, assets/img/research/underwater-tank-spectrogram-dark-1600.webp 1600w, assets/img/research/underwater-tank-spectrogram-dark.jpg 1920w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 92vw, 1052px" alt="Measured spectrogram from 15 to 35 kHz over one second: a long falling preamble chirp and a long rising preamble chirp cross, followed by interleaved rising and falling payload chirps in the 20 to 30 kHz band." width="1920" height="736" loading="lazy">
+            <img class="tw-l" src="assets/img/research/underwater-tank-spectrogram-light.jpg" srcset="assets/img/research/underwater-tank-spectrogram-light-320.webp 320w, assets/img/research/underwater-tank-spectrogram-light-480.webp 480w, assets/img/research/underwater-tank-spectrogram-light-640.webp 640w, assets/img/research/underwater-tank-spectrogram-light-960.webp 960w, assets/img/research/underwater-tank-spectrogram-light-1280.webp 1280w, assets/img/research/underwater-tank-spectrogram-light-1600.webp 1600w, assets/img/research/underwater-tank-spectrogram-light.jpg 1920w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 92vw, 1052px" alt="Measured spectrogram from 15 to 35 kHz over one second: a long falling preamble chirp and a long rising preamble chirp cross, followed by interleaved rising and falling payload chirps in the 20 to 30 kHz band." width="1920" height="736" loading="lazy">
+            <figcaption>Measured in the tank: both nodes’ preambles cross, then their up- and down-chirp payloads interleave in the same band.</figcaption>
           </figure>
         </div>
         <div class="paper">
           <div>
             <h3>Using Orthogonal Chirps Underwater for In-Band, Full-Duplex Communication with Minimal Self-Interference Cancellation</h3>
             <p class="paper-auth">B. Schiel, <b>J. Montierth</b>, E. Blattner, C. E. Dobbs, T. B. Nielsen, P. Lundrigan</p>
-            <p class="paper-venue">ACM WUWNet '24</p>
+            <p class="paper-venue">ACM WUWNet ’24</p>
           </div>
           <div class="paper-act">
             <a class="btn btn-solid" href="https://doi.org/10.1145/3699432.3699464">ACM</a>
@@ -868,21 +878,29 @@
           <canvas class="inst-cv" data-inst="loc" aria-hidden="true"></canvas>
           <figcaption>
             <span class="inst-h">Live: equal weights against confidence weights</span>
-            Eight anchors around an 8.5 × 12&nbsp;m room. Each circle is a range read from signal strength, and the far ones are the noisiest and read long, since bodies and equipment block the direct path. The hollow marker solves with every anchor counted equally; the solid one uses the distance weights. Simulated, with errors measured against the true path.
+            Each ring is a range read from signal strength; far anchors read long, since bodies and equipment block the path. The hollow marker counts every anchor equally, the solid one weights them by distance. Simulated.
           </figcaption>
         </figure>
       </section>
 
-      <!-- ================= SARLINK ================= -->
+      <!-- ================= SARLink ================= -->
       <section class="chap" id="sarlink" aria-labelledby="sar-h">
-        <h2 id="sar-h">SARLINK</h2>
+        <h2 id="sar-h">SARLink</h2>
         <p class="lede">A low-cost ground station that detects radar-imaging satellites as they pass overhead.</p>
         <div class="prose">
-          <p>I served as lead RF engineer on this BYU capstone project, sponsored by Rincon Research and involving more than 250 hours of product development. Synthetic aperture radar (SAR) satellites, such as Sentinel-1, image the Earth using wideband radar chirps. SARLINK detects these and other SAR signals using a single, compact device designed for deployment across a distributed sensor network, enabling real-time detection of spaceborne radar imaging over a given area. The system pairs a Raspberry Pi 5 with a USRP B200mini and custom C- and X-band RF front ends to process raw samples into signal detections, pulse statistics, and satellite pass information, all accessible through a web application.</p>
+          <p>I served as lead RF engineer on this BYU capstone project, sponsored by Rincon Research and involving more than 250 hours of product development. Synthetic aperture radar (SAR) satellites, such as Sentinel-1, image the Earth using wideband radar chirps. SARLink detects these and other SAR signals using a single, compact device designed for deployment across a distributed sensor network, enabling real-time detection of spaceborne radar imaging over a given area. The system pairs a Raspberry Pi 5 with a USRP B200mini and custom C- and X-band RF front ends to process raw samples into signal detections, pulse statistics, and satellite pass information, all accessible through a web application.</p>
         </div>
+        <figure class="inst">
+          <canvas class="inst-cv" data-inst="sarpass" aria-hidden="true"></canvas>
+          <canvas class="inst-cv" data-inst="sar" aria-hidden="true"></canvas>
+          <figcaption>
+            <span class="inst-h">Live: a SAR satellite passing over SARLink</span>
+            SARLink counts the radar’s pulses while the imaged strip covers it, then dechirps each one for CFAR to detect. Simulated and not to scale.
+          </figcaption>
+        </figure>
         <figure class="plate diagram fig-gap">
           <div class="diagram-scroll"><svg viewBox="0 0 1240 404" role="img" aria-labelledby="sar-diag-t">
-            <title id="sar-diag-t">SARLINK system. RF hardware: an X-band antenna feeds an RF front end with a low-noise amplifier and downconverter; a C-band antenna goes straight to an RF switch, which selects C band or the downconverted X band for a USRP B200mini sampling IQ at 50 million samples per second. On a Raspberry Pi 5: a C++ capture engine saves bursts above the noise floor, a DSP chain dechirps them and runs an STFT and CFAR, and detections go to backend databases served by FastAPI to a Vue dashboard. A scheduler retunes the radio over TCP for known passes.</title>
+            <title id="sar-diag-t">SARLink system. RF hardware: an X-band antenna feeds an RF front end with a low-noise amplifier and downconverter; a C-band antenna goes straight to an RF switch, which selects C band or the downconverted X band for a USRP B200mini sampling IQ at 50 million samples per second. On a Raspberry Pi 5: a C++ capture engine saves bursts above the noise floor, a DSP chain dechirps them and runs an STFT and CFAR, and detections go to backend databases served by FastAPI to a Vue dashboard. A scheduler retunes the radio over TCP for known passes.</title>
             <defs><marker id="sar-arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head"/></marker>
               <marker id="sar-arw-m" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="d-head-mute"/></marker></defs>
             <rect class="d-host" x="16" y="24" width="604" height="282" rx="4"/>
@@ -913,7 +931,7 @@
             <path class="d-ctlp" d="M752 292 V215" marker-end="url(#sar-arw-m)"/><text class="d-sub" x="762" y="258">schedule</text>
             <path class="d-ctlp" d="M664 330 H558 V215" marker-end="url(#sar-arw-m)"/><text class="d-sub" x="548" y="334" text-anchor="end">retune over TCP</text>
           </svg></div>
-          <figcaption>The signal path, from antennas to dashboard. <a href="assets/img/sarlink-architecture.png">The team's full system diagram</a></figcaption>
+          <figcaption>The signal path, from antennas to dashboard. <a href="assets/img/sarlink-architecture.png">The team’s full system diagram</a></figcaption>
         </figure>
 
         <h3>The detection chain</h3>
@@ -925,8 +943,8 @@
               <p>A multithreaded C++ engine streams the USRP continuously at 50 million samples per second and tracks a rolling noise floor. When power rises above the floor by a set margin, it saves the burst with pre- and post-trigger buffers as raw IQ plus a JSON sidecar: true frequency, gain, sample rate, time, and schedule. A TCP control server lets the scheduler retune frequency, gain, and rate without restarting the stream, and an RF switch and LO offset handle bands above and below the downconverter boundary.</p>
             </div>
             <figure class="plate plate--fig">
-              <img class="tw-d" src="assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram.jpg" alt="Spectrogram from 5380 to 5430 MHz over 600 microseconds showing three steep linear-FM chirps sweeping upward through the band." width="1904" height="944" loading="lazy">
-              <img class="tw-l" src="assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram.jpg" alt="Spectrogram from 5380 to 5430 MHz over 600 microseconds showing three steep linear-FM chirps sweeping upward through the band." width="1904" height="944" loading="lazy">
+              <img class="tw-d" src="assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram.jpg" srcset="assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-320.webp 320w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-480.webp 480w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-640.webp 640w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-960.webp 960w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-1280.webp 1280w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram-1600.webp 1600w, assets/img/sarlink-dsp/dark/01_raw_chirp_spectrogram.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="Spectrogram from 5380 to 5430 MHz over 600 microseconds showing three steep linear-FM chirps sweeping upward through the band." width="1904" height="944" loading="lazy">
+              <img class="tw-l" src="assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram.jpg" srcset="assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-320.webp 320w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-480.webp 480w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-640.webp 640w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-960.webp 960w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-1280.webp 1280w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram-1600.webp 1600w, assets/img/sarlink-dsp/light/01_raw_chirp_spectrogram.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="Spectrogram from 5380 to 5430 MHz over 600 microseconds showing three steep linear-FM chirps sweeping upward through the band." width="1904" height="944" loading="lazy">
               <figcaption>A captured burst: three radar chirps sweep through the band.</figcaption>
             </figure>
           </li>
@@ -1053,8 +1071,8 @@
               </div>
             </div>
             <figure class="plate plate--fig">
-              <img class="tw-d" src="assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram.jpg" alt="The same burst after delayed-conjugate multiplication: each chirp has become a short horizontal tone near 5406 MHz inside a band of spread energy." width="1904" height="944" loading="lazy">
-              <img class="tw-l" src="assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram.jpg" alt="The same burst after delayed-conjugate multiplication: each chirp has become a short horizontal tone near 5406 MHz inside a band of spread energy." width="1904" height="944" loading="lazy">
+              <img class="tw-d" src="assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram.jpg" srcset="assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-320.webp 320w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-480.webp 480w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-640.webp 640w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-960.webp 960w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-1280.webp 1280w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram-1600.webp 1600w, assets/img/sarlink-dsp/dark/02_dcm_dechirped_spectrogram.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="The same burst after delayed-conjugate multiplication: each chirp has become a short horizontal tone near 5406 MHz inside a band of spread energy." width="1904" height="944" loading="lazy">
+              <img class="tw-l" src="assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram.jpg" srcset="assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-320.webp 320w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-480.webp 480w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-640.webp 640w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-960.webp 960w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-1280.webp 1280w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram-1600.webp 1600w, assets/img/sarlink-dsp/light/02_dcm_dechirped_spectrogram.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="The same burst after delayed-conjugate multiplication: each chirp has become a short horizontal tone near 5406 MHz inside a band of spread energy." width="1904" height="944" loading="lazy">
               <figcaption>After dechirping, each chirp collapses to a short tone.</figcaption>
             </figure>
           </li>
@@ -1069,7 +1087,7 @@
             <p class="stage-n">04</p>
             <div>
               <h4>Two-dimensional CA-CFAR</h4>
-              <p>A cell-averaging constant-false-alarm-rate detector compares every time–frequency cell with the mean of the training cells around it, skipping a guard region so a tone doesn't raise its own threshold. Parabolic interpolation then refines the peak frequency between FFT bins, which sets the chirp-rate estimate.</p>
+              <p>A cell-averaging constant-false-alarm-rate detector compares every time–frequency cell with the mean of the training cells around it, skipping a guard region so a tone doesn’t raise its own threshold. Parabolic interpolation then refines the peak frequency between FFT bins, which sets the chirp-rate estimate.</p>
               <div class="eqbox eq-stack">
                 <span class="eqm" data-eq="sar_cfar" role="img" aria-label="x_CUT is greater than alpha times (1/N) times the sum over the training cells of x_i"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8.3300em" height="2.6911em" viewBox="-0.211 -13.875 82.989 26.81" fill="currentColor">
 <defs>
@@ -1107,8 +1125,8 @@
               </div>
             </div>
             <figure class="plate plate--fig">
-              <img class="tw-d" src="assets/img/sarlink-dsp/dark/03_cfar_detection.jpg" alt="The dechirped spectrogram with a box drawn around each of the three tones, labeled SAR detections." width="1904" height="944" loading="lazy">
-              <img class="tw-l" src="assets/img/sarlink-dsp/light/03_cfar_detection.jpg" alt="The dechirped spectrogram with a box drawn around each of the three tones, labeled SAR detections." width="1904" height="944" loading="lazy">
+              <img class="tw-d" src="assets/img/sarlink-dsp/dark/03_cfar_detection.jpg" srcset="assets/img/sarlink-dsp/dark/03_cfar_detection-320.webp 320w, assets/img/sarlink-dsp/dark/03_cfar_detection-480.webp 480w, assets/img/sarlink-dsp/dark/03_cfar_detection-640.webp 640w, assets/img/sarlink-dsp/dark/03_cfar_detection-960.webp 960w, assets/img/sarlink-dsp/dark/03_cfar_detection-1280.webp 1280w, assets/img/sarlink-dsp/dark/03_cfar_detection-1600.webp 1600w, assets/img/sarlink-dsp/dark/03_cfar_detection.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="The dechirped spectrogram with a box drawn around each of the three tones, labeled SAR detections." width="1904" height="944" loading="lazy">
+              <img class="tw-l" src="assets/img/sarlink-dsp/light/03_cfar_detection.jpg" srcset="assets/img/sarlink-dsp/light/03_cfar_detection-320.webp 320w, assets/img/sarlink-dsp/light/03_cfar_detection-480.webp 480w, assets/img/sarlink-dsp/light/03_cfar_detection-640.webp 640w, assets/img/sarlink-dsp/light/03_cfar_detection-960.webp 960w, assets/img/sarlink-dsp/light/03_cfar_detection-1280.webp 1280w, assets/img/sarlink-dsp/light/03_cfar_detection-1600.webp 1600w, assets/img/sarlink-dsp/light/03_cfar_detection.jpg 1904w" sizes="(max-width: 600px) 71vw, (max-width: 860px) 83vw, (max-width: 1100px) 85vw, 465px" alt="The dechirped spectrogram with a box drawn around each of the three tones, labeled SAR detections." width="1904" height="944" loading="lazy">
               <figcaption>CFAR marks one detection per chirp.</figcaption>
             </figure>
           </li>
@@ -1128,32 +1146,12 @@
           </li>
         </ol>
 
-        <figure class="inst">
-          <canvas class="inst-cv" data-inst="sar" aria-hidden="true"></canvas>
-          <figcaption>
-            <span class="inst-h">Live: the chain on a simulated pass</span>
-            Top, linear-FM pulses rise out of the noise as the satellite passes. Bottom, the delayed-conjugate product collapses each pulse to one tone, and the CFAR detector boxes every one. Simulated.
-          </figcaption>
-        </figure>
-
         <h3>The dashboard we built</h3>
-        <div class="prose"><p>Our Vue web app is how an operator uses SARLINK: browse detections with their spectrograms and pulse statistics, save the interesting ones, and set what the radio listens to and when. These are screenshots of the real app, run with simulated detections.</p></div>
-        <div class="shots shots--pair sar-shots">
-          <figure class="shot">
-            <img src="assets/img/sarlink/sarlink-dashboard.jpg" alt="SARLINK web app: a sidebar with the SARLink logo, navigation, and system health readings (chassis temperature, humidity, current frequency 9650 MHz, CPU, and RAM), beside a table headed 'Number of detections: 24' whose rows show spectrogram thumbnails, frequency, sample rate, duration, maximum power, SNR, UTC time, and a Saved toggle." width="2000" height="1250" loading="lazy">
-            <figcaption>Detections from recent passes, with enclosure and system health in the sidebar.</figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="assets/img/sarlink/sarlink-detection.jpg" alt="SARLINK Entry Details panel open over the detections table, showing a spectrogram with a single bright diagonal chirp line, and a metadata table listing start and end time, duration, frequency 9651 MHz, mean chirp rate 997500 MHz/s, 121 total pulses, and a 500.1 microsecond mean pulse repetition interval." width="2000" height="1250" loading="lazy">
-            <figcaption>A detection opened: its chirp, chirp rate, pulse count, and PRI.</figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="assets/img/sarlink/sarlink-config.jpg" alt="SARLINK Configuration page with a Rolling Configuration table (C-band rolling at 5405 MHz, X-band rolling at 9650 MHz, and X-band alternate at 9600 MHz, each at 50 MHz sample rate and 40 dB gain), a Scheduler Settings card with a rotation rate of 5 seconds, and the top of the Scheduled Configuration table." width="2000" height="1250" loading="lazy">
-            <figcaption>Rolling receiver frequencies and the scheduler's rotation rate.</figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="assets/img/sarlink/sarlink-passes.jpg" alt="SARLINK Configuration page scrolled down: a Scheduled Configuration table of three upcoming captures with start times and durations, a Completed Passes table listing X-band and C-band passes marked Successful or Not Successful, and the sidebar showing SSD usage, Radio On, and H2O Detect Active." width="2000" height="1250" loading="lazy">
-            <figcaption>Scheduled pass captures and completed passes.</figcaption>
+        <div class="prose"><p>Our Vue web app is how an operator uses SARLink: browse detections with their spectrograms and pulse statistics, save the interesting ones, and set what the radio listens to and when. This is the real app, run with simulated detections.</p></div>
+        <div class="figs figs--1 sar-shots">
+          <figure class="plate shot--clip">
+            <div class="clip-media"><img class="tw-d" src="assets/img/sarlink/sarlink-walkthrough-dark.jpg" srcset="assets/img/sarlink/sarlink-walkthrough-dark-320.webp 320w, assets/img/sarlink/sarlink-walkthrough-dark-480.webp 480w, assets/img/sarlink/sarlink-walkthrough-dark-640.webp 640w, assets/img/sarlink/sarlink-walkthrough-dark-960.webp 960w, assets/img/sarlink/sarlink-walkthrough-dark.jpg 1200w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 92vw, 1052px" alt="SARLink web app: the detections table, each row with a spectrogram thumbnail, frequency, duration, power, SNR, time, and a Saved switch, beside a sidebar of system health readings." width="1200" height="640" loading="lazy"><img class="tw-l" src="assets/img/sarlink/sarlink-walkthrough-light.jpg" srcset="assets/img/sarlink/sarlink-walkthrough-light-320.webp 320w, assets/img/sarlink/sarlink-walkthrough-light-480.webp 480w, assets/img/sarlink/sarlink-walkthrough-light-640.webp 640w, assets/img/sarlink/sarlink-walkthrough-light-960.webp 960w, assets/img/sarlink/sarlink-walkthrough-light.jpg 1200w" sizes="(max-width: 600px) 90vw, (max-width: 860px) 92vw, (max-width: 1100px) 92vw, 1052px" alt="SARLink web app: the detections table, each row with a spectrogram thumbnail, frequency, duration, power, SNR, time, and a Saved switch, beside a sidebar of system health readings." width="1200" height="640" loading="lazy"><video class="tw-d" src="assets/video/sarlink-walkthrough-dark.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><video class="tw-l" src="assets/video/sarlink-walkthrough-light.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+            <figcaption>Filtering detections, opening one, saving one, and the radio’s capture schedule.</figcaption>
           </figure>
         </div>
       </section>
