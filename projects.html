@@ -297,14 +297,14 @@
         <!-- ================= Personal Mobile Ecosystem ================= -->
         <article class="chap" id="daily-apps" aria-labelledby="daily-h">
           <h3 class="chap-t" id="daily-h">Personal Mobile Ecosystem</h3>
-          <p class="lede">My custom built ecosystem I built for Andriod.</p>
+          <p class="lede">My custom built ecosystem for Android.</p>
           <section class="sub" id="avogadro" aria-labelledby="avo-h">
             <h4 id="avo-h">Avogadro</h4>
             <p class="sub-lede">A private, self-hosted search page with cited answers from a local model.</p>
             <div class="prose">
               <p>Avogadro is my custom, self-hosted metasearch engine designed for private browsing based on SearXNG. All requests stay on my own server, with a strict Content Security Policy blocking third-party connections. Images and icons are served through a proxy, and outbound links never pass my searches to the sites I visit.</p>
               <p>Avogadro also uses a custom plugin I wrote for better results. It folds mobile, AMP, and duplicate copies of a page, and papers listed under the same DOI, into a single result, so the backend engines that found them pool their votes and the page ranks where it should.</p>
-              <p>When a query is phrased as a question, Avogadro generates a concise answer using Gemma 4 running locally (ether on a local server or on the device), with every sentence citing its sources. My server retrieves the top result pages and extracts passages relevant to the question. The moment you start typing, it beings loading the model, allowing for responses within 1s of making the search. The name Avogadro is a play on the idea of an enormous number, much like googol.</p>
+              <p>When a query is phrased as a question, Avogadro generates a concise answer using Gemma 4 running locally (either on a local server or on the device), with every sentence citing its sources. My server retrieves the top result pages and extracts passages relevant to the question. The moment you start typing, it begins loading the model, allowing for responses within 1s of making the search. The name Avogadro is a play on the idea of an enormous number, much like googol.</p>
             </div>
             <div class="figs figs--1">
               <figure class="plate shot--clip clip-wide">
@@ -319,7 +319,7 @@
             <h4 id="pulitzer-h">Pulitzer</h4>
             <p class="sub-lede">A private news reader for the web and Android.</p>
             <div class="prose">
-              <p>I wanted to create my own custom news feed, from the sources I like and with no ads, algorithms, or tracking. Pulitzer is my news reader for about 140 of those sources, with a server, a web app, and an Android app, built on top FreshRSS, which I host myself.</p>
+              <p>I wanted to create my own custom news feed, from the sources I like and with no ads, algorithms, or tracking. Pulitzer is my news reader for about 140 of those sources, with a server, a web app, and an Android app, built on top of FreshRSS, which I host myself.</p>
               <p>Each of the roughly 560 stories a day becomes a card with its image, source, opening lines, and a short summary, either the publisher’s own or one written by Gemma 4, running locally rather than in the cloud. My server fetches and caches every article and image itself, so no page ever makes a third-party request, and the Android app keeps a full copy for offline reading. Read and saved stories stay in sync on every device, and the Android app updates itself from my server. It also includes cards for subscriped sports, markets, and weather.</p>
             </div>
             <div class="figs figs--1">
@@ -334,7 +334,7 @@
             <h4 id="particle-h">Particle</h4>
             <p class="sub-lede">My Android home screen that puts it all together.</p>
             <div class="prose">
-              <p>Now that I have my own news feed and search engine, it was time to get my own Andriod home launcher, Particle. It works like the traditional Andriod launchers, with pages of icons and widgets, a dock, folders, and an app tray, but its search bar searches with Avogadro, and the page to the left of home is Pulitzer, in place of Google’s Discover feed.</p>
+              <p>Now that I have my own news feed and search engine, it was time to get my own Android home launcher, Particle. It works like the traditional Android launchers, with pages of icons and widgets, a dock, folders, and an app tray, but its search bar searches with Avogadro, and the page to the left of home is Pulitzer, in place of Google’s Discover feed.</p>
               <p>Particle talks only to my own servers. The weather under the clock comes from Pulitzer for the phone’s approximate location, and the Pulitzer page is cached, so it opens instantly and works offline. </p>
             </div>
             <div class="figs figs--devices">
