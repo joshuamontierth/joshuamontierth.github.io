@@ -176,6 +176,7 @@ html:not(.js) :is(.inst, .mood-demo) { display: none; }
 .tabs a[aria-current="page"]::after { content: ""; position: absolute; left: 13px; right: 13px; bottom: -12px; height: 2px; background: var(--fg); view-transition-name: tab-mark; }
 .bar-act { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
 .bar-act .btn { gap: 0; height: 34px; padding: 0 14px; font-size: 13.5px; }
+.bar-act .bar-more { margin-right: 0.28em; }          /* a flex item drops its trailing space */
 
 .theme-btn {
   display: inline-grid; place-items: center; width: 34px; height: 34px; padding: 0;
